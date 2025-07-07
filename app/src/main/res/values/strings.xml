@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">deputy-chamber-app</string>
+    <string name="informations_title">Informações</string>
+    <string name="gabinete_title">Gabinete</string>
+    <string name="redes_title">Redes</string>
+    <string name="see_costs_btn">Ver despesas do deputado</string>
 </resources>

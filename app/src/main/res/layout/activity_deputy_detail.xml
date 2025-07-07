@@ -29,7 +29,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Informações"
+            android:text="@string/informations_title"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -83,7 +83,7 @@
             android:id="@+id/textTitleGabinete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gabinete"
+            android:text="@string/gabinete_title"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -173,7 +173,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Redes"
+            android:text="@string/redes_title"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -189,7 +189,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:layout_marginTop="16dp"
-        android:text="Button"
+        android:text="@string/see_costs_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
