@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/deputies"
+        android:enabled="true"
+        android:icon="@drawable/users_alt"
+        android:title="Candidatos" />
+    <item
+        android:id="@+id/podium"
+        android:enabled="true"
+        android:icon="@drawable/podium"
+        android:title="Partidos" />
+
+    <item
+        android:id="@+id/file"
+        android:enabled="true"
+        android:icon="@drawable/file_edit_alt"
+        android:title="Proposições" />
+</menu>
