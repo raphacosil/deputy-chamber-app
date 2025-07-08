@@ -21,6 +21,9 @@
         <item name="android:background">#FFFFFF</item>
         <item name="android:radius">8dp</item>
         <item name="elevation">6dp</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:padding">12dp</item>
         <item name="contentPadding">16dp</item>
+
     </style>
 </resources>
