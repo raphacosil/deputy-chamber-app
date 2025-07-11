@@ -4,7 +4,8 @@
     style="@style/CardStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp">
+    android:layout_margin="16dp"
+    android:background="@drawable/linear_layout">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -13,8 +14,7 @@
         android:background="@color/pure_white"
         android:backgroundTint="@color/pure_white"
         android:backgroundTintMode="add"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <View
             android:layout_width="10dp"

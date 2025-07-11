@@ -10,14 +10,17 @@
 
     <LinearLayout
         android:id="@+id/deputyInfosLinear"
+        style="@style/LinearStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:background="@drawable/linear_layout"
         android:orientation="horizontal"
         android:padding="12dp"
         android:paddingTop="20dp"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/LinearStyle">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <View
             android:layout_width="10dp"
@@ -68,6 +71,7 @@
         style="@style/LinearStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/linear_layout"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -116,6 +120,7 @@
         style="@style/LinearStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/linear_layout"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -148,11 +153,14 @@
 
     <LinearLayout
         android:id="@+id/deputyRedesLinear"
+        style="@style/LinearStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/linear_layout"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutGabineteLinear"
-        style="@style/LinearStyle">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutGabineteLinear">
 
         <TextView
             android:id="@+id/textView11"
