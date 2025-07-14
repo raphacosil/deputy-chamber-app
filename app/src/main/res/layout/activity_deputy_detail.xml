@@ -25,7 +25,7 @@
         <View
             android:layout_width="10dp"
             android:layout_height="120dp"
-            android:background="@color/navy_blue"
+            android:background="@color/header_background"
             android:paddingEnd="16dp" />
 
         <ImageView

@@ -11,15 +11,15 @@
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/pure_white"
-        android:backgroundTint="@color/pure_white"
+        android:background="@color/card_background"
+        android:backgroundTint="@color/card_background"
         android:backgroundTintMode="add"
         android:orientation="horizontal">
 
         <View
             android:layout_width="10dp"
             android:layout_height="match_parent"
-            android:background="@color/navy_blue"
+            android:background="@color/header_background"
             android:paddingEnd="16dp" />
 
         <ImageView
