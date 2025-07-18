@@ -6,6 +6,9 @@
     <color name="card_background">#201F24</color>
     <color name="header_background">#3B54CF</color>
     <color name="footer_item">#FFF</color>
+    <color name="button">#2F2B8C</color>
+    <color name="button_text">#FFF</color>
+
     <color name="blue">#2F2B8C</color>
     <color name="blue_link">#43A9FF</color>
 </resources>
