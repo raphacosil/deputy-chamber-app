@@ -9,7 +9,6 @@
         android:enabled="true"
         android:icon="@drawable/podium"
         android:title="Partidos" />
-
     <item
         android:id="@+id/file"
         android:enabled="true"

@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="transparent">transparent</color>
     <color name="text">#FF000000</color>
     <color name="deactivate">#A09FC1</color>
-    <color name="background">#F8F8F8</color>
-    <color name="card_background">#FFFFFFFF</color>
+    <color name="screen_background">#F8F8F8</color>
+    <color name="card_background">#FFF</color>
     <color name="header_background">#2F2B8C</color>
     <color name="footer_item">#2F2B8C</color>
+    <color name="button">#2F2B8C</color>
+    <color name="button_text">#FFF</color>
+
     <color name="blue">#3B54CF</color>
     <color name="blue_link">#0072D3</color>
 </resources>

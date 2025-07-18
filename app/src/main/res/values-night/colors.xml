@@ -2,7 +2,7 @@
 <resources>
     <color name="text">#FFF</color>
     <color name="deactivate">#747683</color>
-    <color name="background">#17181C</color>
+    <color name="screen_background">#17181C</color>
     <color name="card_background">#201F24</color>
     <color name="header_background">#3B54CF</color>
     <color name="footer_item">#FFF</color>

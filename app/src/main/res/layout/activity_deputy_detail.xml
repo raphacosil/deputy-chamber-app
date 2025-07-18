@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F8F8"
-    android:backgroundTint="#F8F8F8"
     tools:context=".DeputyDetailActivity">
 
     <LinearLayout
@@ -13,11 +11,8 @@
         style="@style/LinearStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/linear_layout"
+        android:layout_margin="@dimen/base_margin"
         android:orientation="horizontal"
-        android:padding="12dp"
-        android:paddingTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,19 +21,19 @@
             android:layout_width="10dp"
             android:layout_height="120dp"
             android:background="@color/header_background"
-            android:paddingEnd="16dp" />
+            android:paddingEnd="@dimen/base_padding" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/internal_margin"
             tools:srcCompat="@tools:sample/avatars" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/internal_margin"
             android:orientation="vertical">
 
             <TextView
@@ -63,6 +58,32 @@
                 android:text="TextView"
                 android:textSize="16sp" />
 
+            <?xml version="1.0" encoding="utf-8"?>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="1dp">
+                <View
+                    android:id="@+id/viewStatusIcon"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/status_style"
+                    android:backgroundTint="@color/blue" />
+
+                <TextView
+                    android:id="@+id/textViewStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:paddingStart="6dp"
+                    android:text="Ativo"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/title_text_size" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
@@ -71,7 +92,6 @@
         style="@style/LinearStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/linear_layout"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -83,36 +103,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/informations_title"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/title_text_size"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nascido em 01/01/1991"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_size"/>
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Gênero masculino"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_size"/>
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Natural de São Paulo, do estado de São Paulo"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_size"/>
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Escolaridade, Ensino Superior Completo "
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_size"/>
     </LinearLayout>
 
     <LinearLayout
@@ -120,7 +140,6 @@
         style="@style/LinearStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/linear_layout"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -132,7 +151,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/gabinete_title"
-            android:textSize="20sp"
+            android:textSize="@dimen/title_text_size"
             android:textStyle="bold" />
 
         <TextView
@@ -140,14 +159,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="3215-5744"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_size" />
 
         <TextView
             android:id="@+id/textEmailGabinete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="dep.fulanodasilva@camara.leg.br"
-            android:textSize="14sp" />
+            android:textSize="@dimen/small_text_size"
+            style="@style/TextViewLinkStyle"
+            />
 
     </LinearLayout>
 
@@ -156,25 +177,22 @@
         style="@style/LinearStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/linear_layout"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutGabineteLinear">
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/textViewTitleRedes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/redes_title"
-            android:textSize="20sp"
+            android:textSize="@dimen/title_text_size"
             android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <Button
@@ -182,8 +200,7 @@
         style="@style/ButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_margin="@dimen/base_margin"
         android:text="@string/see_costs_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
