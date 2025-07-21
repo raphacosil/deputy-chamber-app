@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/CardStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/base_margin">
+    android:layout_margin="@dimen/base_margin"
+    app:cardElevation="@dimen/card_elevation">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
+        style="@style/LinearStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/LinearStyle"
         android:orientation="horizontal">
 
         <View
@@ -56,10 +58,10 @@
 
             <TextView
                 android:id="@+id/textViewEmail"
+                style="@style/TextViewLinkStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                style="@style/TextViewLinkStyle"
                 android:textSize="@dimen/small_text_size" />
 
         </LinearLayout>
