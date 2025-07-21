@@ -1,5 +1,6 @@
 package com.example.deputy_chamber_app
 
+import com.example.deputy_chamber_app.presentation.viewmodel.DeputyDetailViewModel
 import com.example.deputy_chamber_app.presentation.viewmodel.DeputyListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -29,5 +30,8 @@ import org.koin.dsl.module
 val presentationModule = module {
     viewModel {
         DeputyListViewModel()
+    }
+    viewModel {
+        DeputyDetailViewModel()
     }
 }

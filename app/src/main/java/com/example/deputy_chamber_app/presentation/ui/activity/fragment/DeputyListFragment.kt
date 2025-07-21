@@ -1,5 +1,6 @@
 package com.example.deputy_chamber_app.presentation.ui.activity.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.deputy_chamber_app.databinding.FragmentDeputyListBinding
+import com.example.deputy_chamber_app.presentation.ui.activity.DeputyDetailActivity
 import com.example.deputy_chamber_app.presentation.ui.entity.DeputyItem
 import com.example.deputy_chamber_app.presentation.ui.view.adapter.DeputyAdapter
 import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnDeputyItemClickListener
@@ -82,6 +84,8 @@ class DeputyListFragment : Fragment(), OnDeputyItemClickListener {
     }
 
     override fun onDeputyItemClick(deputyId: Int) {
-        Log.d("TAG", "onDeputyItemClick: $deputyId")
+        val intent = Intent(requireContext(), DeputyDetailActivity::class.java)
+        intent.putExtra("deputyId", deputyId)
+        startActivity(intent)
     }
 }
