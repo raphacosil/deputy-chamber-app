@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="transparent">transparent</color>
+    <color name="transparent">#00000000</color>
     <color name="text">#FF000000</color>
     <color name="deactivate">#A09FC1</color>
     <color name="screen_background">#F8F8F8</color>

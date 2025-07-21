@@ -13,10 +13,10 @@
         android:theme="@style/Theme.Deputychamberapp"
         tools:targetApi="31">
         <activity
-            android:name=".DeputyDetailActivity"
+            android:name=".presentation.ui.activity.DeputyDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.ui.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
