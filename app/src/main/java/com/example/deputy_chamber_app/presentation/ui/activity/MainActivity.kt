@@ -29,6 +29,22 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                     true
                 }
+                R.id.podium -> {
+//                    val deputyPodiumFragment = DeputyPodiumFragment()
+//                    supportFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.frameLayout, deputyPodiumFragment)
+//                        .commit()
+                    true
+                }
+                R.id.file -> {
+//                    val deputyFileFragment = DeputyFileFragment()
+//                    supportFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.frameLayout, deputyFileFragment)
+//                        .commit()
+                    true
+                }
                 else -> false
             }
         }

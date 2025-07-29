@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.deputy_chamber_app.R
 import com.example.deputy_chamber_app.databinding.DeputyItemBinding
-import com.example.deputy_chamber_app.presentation.ui.entity.DeputyItem
+import com.example.deputy_chamber_app.domain.entity.DeputyItem
 import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnDeputyItemClickListener
 
 class DeputyAdapter(

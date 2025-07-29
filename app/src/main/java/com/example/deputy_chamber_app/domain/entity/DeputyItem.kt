@@ -1,4 +1,4 @@
-package com.example.deputy_chamber_app.presentation.ui.entity
+package com.example.deputy_chamber_app.domain.entity
 
 data class DeputyItem(
     val id: Int,

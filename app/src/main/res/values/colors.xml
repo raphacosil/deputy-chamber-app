@@ -4,11 +4,11 @@
     <color name="text">#FF000000</color>
     <color name="deactivate">#A09FC1</color>
     <color name="screen_background">#F8F8F8</color>
-    <color name="card_background">#FFF</color>
+    <color name="card_background">#FFFFFF</color>
     <color name="header_background">#2B3D8C</color>
     <color name="footer_item">#2B3D8C</color>
     <color name="button">#2B3D8C</color>
-    <color name="button_text">#FFF</color>
+    <color name="button_text">#FFFFFF</color>
 
     <color name="blue">#3B6FCF</color>
     <color name="blue_link">#0072D3</color>
