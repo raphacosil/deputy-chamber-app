@@ -5,12 +5,14 @@ import com.example.deputy_chamber_app.data.dto.GetDeputiesResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface DeputyService {
 
     @GET("deputados")
     suspend fun getDeputies(
-        @Path("page") page: Int?
+        @Query("pagina") page: Int?,
+        @Query("itens") items: Int = 10
     ): Response<GetDeputiesResponse>
 
     @GET("deputados/{id}")

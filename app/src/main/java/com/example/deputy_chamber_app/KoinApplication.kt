@@ -39,7 +39,7 @@ val domainModule = module {
 
 val presentationModule = module {
     viewModel {
-        DeputyListViewModel()
+        DeputyListViewModel(get())
     }
     viewModel {
         DeputyDetailViewModel()
