@@ -14,17 +14,7 @@ data class DeputyInfo(
     val uri: String,
     @SerializedName("nomeCivil")
     val civilName: String,
-    @SerializedName("siglaPartido")
-    val party: String,
-    @SerializedName("uriPartido")
-    val uriParty: String,
-    val uf: String,
-    @SerializedName("idLegislatura")
-    val idLegislature: Int,
-    @SerializedName("urlFoto")
-    val urlPhoto: String,
-    val email: String,
-    @SerializedName("nomeEleitoral")
+    @SerializedName("dataNascimento")
     val dataNascimento: String,
     @SerializedName("ufNascimento")
     val birthState: String,
@@ -33,7 +23,7 @@ data class DeputyInfo(
     @SerializedName("escolaridade")
     val schooling: String,
     @SerializedName("redeSocial")
-    val socialMedia: List<String>,
+    val socialMedia: List<String>?,
     @SerializedName("ultimoStatus")
     val lastStatus: ElectoralInfo,
 )
@@ -46,7 +36,7 @@ data class ElectoralInfo(
     @SerializedName("siglaPartido")
     val party: String,
     @SerializedName("uriPartido")
-    val uriParty: String,
+    val uriParty: String?,
     @SerializedName("siglaUf")
     val uf: String,
     @SerializedName("idLegislatura")

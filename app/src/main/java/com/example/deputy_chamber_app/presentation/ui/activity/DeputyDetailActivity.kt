@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.example.deputy_chamber_app.R
 import com.example.deputy_chamber_app.databinding.ActivityDeputyDetailBinding
 import com.example.deputy_chamber_app.domain.entity.DeputyDetail
@@ -50,7 +51,13 @@ class DeputyDetailActivity : AppCompatActivity() {
 
     private fun setupContent(deputyInfo: DeputyDetail?) {
         if (deputyInfo != null) {
-            binding.tvName.text = deputyInfo.name
+            Glide.with(this)
+                .load(deputyInfo.imageUrl)
+                .placeholder(R.drawable.deputy_placeholder)
+                .error(R.drawable.deputy_placeholder)
+                .into(binding.ivDeputyPhoto)
+
+            binding.tvName.text = deputyInfo.civilName
             binding.tvParty.text = deputyInfo.party
             binding.tvUf.text = deputyInfo.uf
 

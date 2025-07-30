@@ -1,5 +1,6 @@
 package com.example.deputy_chamber_app.data.repository
 
+import android.util.Log
 import com.example.deputy_chamber_app.data.dto.DeputyDetailResponse
 import com.example.deputy_chamber_app.data.dto.GetDeputiesResponse
 import com.example.deputy_chamber_app.data.service.DeputyService
@@ -22,6 +23,7 @@ class DeputyRepositoryImpl(
 
     override suspend fun getDeputyDetail(id: Int): DeputyDetail? {
         val response = service.getDeputyDetail(id)
+        Log.e("DeputyRepositoryImpl", "getDeputyDetail: $response")
         if (response.isSuccessful) {
             return mapToDeputyDetail(
                 response.body()
@@ -50,9 +52,9 @@ fun mapToDeputyDetail(detailResponse: DeputyDetailResponse?): DeputyDetail? {
         return DeputyDetail(
             id = detailResponse.data.id,
             civilName = detailResponse.data.civilName,
-            party = detailResponse.data.party,
-            uf = detailResponse.data.uf,
-            imageUrl = detailResponse.data.urlPhoto,
+            party = detailResponse.data.lastStatus.party,
+            uf = detailResponse.data.lastStatus.uf,
+            imageUrl = detailResponse.data.lastStatus.urlPhoto,
             situation = detailResponse.data.lastStatus.situation,
             birthDate = detailResponse.data.dataNascimento,
             birthState = detailResponse.data.birthState,
@@ -63,7 +65,7 @@ fun mapToDeputyDetail(detailResponse: DeputyDetailResponse?): DeputyDetail? {
             room = detailResponse.data.lastStatus.cabinet.room,
             floor = detailResponse.data.lastStatus.cabinet.floor,
             phone = detailResponse.data.lastStatus.cabinet.phone,
-            email = detailResponse.data.email,
+            email = detailResponse.data.lastStatus.email,
             socialMedia = detailResponse.data.socialMedia
         )
     }

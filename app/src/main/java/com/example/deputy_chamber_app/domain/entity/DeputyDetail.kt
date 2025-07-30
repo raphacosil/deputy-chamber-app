@@ -19,7 +19,7 @@ data class DeputyDetail(
     val room: String,
     val floor: String,
     val phone: String,
-    val email: String,
+    val email: String?,
 
-    val socialMedia: List<String>,
+    val socialMedia: List<String>?,
 )

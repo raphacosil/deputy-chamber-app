@@ -55,6 +55,7 @@ class DeputyDetailViewModel(
     private fun getDeputyDetail(deputyId: Int) {
         viewModelScope.launch {
             try {
+                Log.d("DeputyDetailViewModel", "getDeputyDetail: $deputyId")
                 val result = getDeputyDetailUseCase.invoke(deputyId)
                 onDataLoaded(result)
             } catch (e: Exception) {
