@@ -35,7 +35,10 @@
         <item name="android:background">@color/card_background</item>
         <item name="android:radius">@dimen/corner_radius</item>
         <item name="elevation">6dp</item>
-        <item name="android:layout_margin">@dimen/linear_layout_margin</item>
+        <item name="android:layout_marginStart">@dimen/linear_layout_margin_sides</item>
+        <item name="android:layout_marginEnd">@dimen/linear_layout_margin_sides</item>
+        <item name="android:layout_marginBottom">@dimen/linear_layout_margin_top_bottom</item>
+        <item name="android:layout_marginTop">@dimen/linear_layout_margin_top_bottom</item>
         <item name="android:padding">@dimen/small_padding</item>
         <item name="contentPadding">@dimen/base_padding</item>
     </style>
@@ -54,4 +57,15 @@
         <item name="labelVisibilityMode">labeled</item>
     </style>
 
+    <style name="MyActiveIndicator" parent="@style/Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:color">@color/active_indicator_menu</item>
+        <item name="android:height">32dp</item>
+        <item name="android:width">64dp</item>
+        <item name="shapeAppearance">@style/MyActiveIndicatorShape</item>
+    </style>
+
+    <style name="MyActiveIndicatorShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
 </resources>

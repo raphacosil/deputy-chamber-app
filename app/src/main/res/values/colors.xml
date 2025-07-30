@@ -9,6 +9,7 @@
     <color name="footer_item">#2B3D8C</color>
     <color name="button">#2B3D8C</color>
     <color name="button_text">#FFFFFF</color>
+    <color name="active_indicator_menu">#663B6FCF</color>
 
     <color name="blue">#3B6FCF</color>
     <color name="blue_link">#0072D3</color>

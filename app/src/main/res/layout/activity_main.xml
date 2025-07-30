@@ -48,12 +48,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu"
+
+        android:background="@color/card_background"
 
         app:itemIconSize="@dimen/icon_size"
         app:itemIconTint="@color/bottom_nav_color"
         app:itemTextColor="@color/bottom_nav_color"
-        app:menu="@menu/bottom_navigation_menu"
-        android:background="@color/card_background"
+
+        app:itemActiveIndicatorStyle="@style/MyActiveIndicator"
+        app:labelVisibilityMode="labeled"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

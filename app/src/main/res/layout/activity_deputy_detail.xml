@@ -1,209 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/screen_background"
-    tools:context=".presentation.ui.activity.DeputyDetailActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:id="@+id/deputyInfosLinear"
-        style="@style/LinearStyle"
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@android:style/Widget.Holo.Light.ProgressBar.Large"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/base_margin"
-        android:orientation="horizontal"
+        android:indeterminateTint="@color/blue"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:layout_width="10dp"
-            android:layout_height="120dp"
-            android:background="@color/header_background"
-            android:paddingEnd="@dimen/base_padding" />
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/screen_background"
+        tools:context=".presentation.ui.activity.DeputyDetailActivity"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/internal_margin"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <LinearLayout
+        <ImageButton
+            android:id="@+id/btnExit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/internal_margin"
-            android:orientation="vertical">
+            app:srcCompat="@drawable/cancel_24px"
+            android:background="@color/transparent"
+            android:layout_margin="@dimen/linear_layout_margin_sides"
+            android:layout_marginBottom="@dimen/linear_layout_margin_top_bottom"
+            />
 
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+        <LinearLayout
+            android:id="@+id/deputyInfosLinear"
+            style="@style/LinearStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="16sp" />
+            <View
+                android:layout_width="10dp"
+                android:layout_height="120dp"
+                android:background="@color/header_background"
+                android:paddingEnd="@dimen/base_padding" />
 
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="16sp" />
+            <ImageView
+                android:id="@+id/ivDeputyPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/internal_margin"
+                tools:srcCompat="@tools:sample/avatars" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteX="1dp"
-                tools:layout_editor_absoluteY="1dp">
-                <View
-                    android:id="@+id/viewStatusIcon"
-                    android:layout_width="27dp"
-                    android:layout_height="27dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/status_style"
-                    android:backgroundTint="@color/blue" />
+                android:layout_margin="@dimen/internal_margin"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textViewStatus"
+                    android:id="@+id/tvName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvParty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvUf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/inter_18pt_bold"
-                    android:paddingStart="6dp"
-                    android:text="Ativo"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/title_text_size" />
+                    android:orientation="horizontal"
+                    tools:layout_editor_absoluteX="1dp"
+                    tools:layout_editor_absoluteY="1dp">
+
+                    <View
+                        android:id="@+id/viewStatusIcon"
+                        android:layout_width="27dp"
+                        android:layout_height="27dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/status_style"
+                        android:backgroundTint="@color/blue" />
+
+                    <TextView
+                        android:id="@+id/textViewStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/inter_18pt_bold"
+                        android:paddingStart="6dp"
+                        android:text="Ativo"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/title_text_size" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/deputyPersonalInfosLinear"
-        style="@style/LinearStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deputyInfosLinear">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/informations_title"
-            android:textSize="@dimen/title_text_size"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/textView2"
+        <LinearLayout
+            android:id="@+id/deputyPersonalInfosLinear"
+            style="@style/LinearStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nascido em 01/01/1991"
-            android:textSize="@dimen/text_size"/>
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView3"
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/informations_title"
+                android:textSize="@dimen/title_text_size"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvBirthDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nascido em 01/01/1991"
+                android:textSize="@dimen/text_size"/>
+
+            <TextView
+                android:id="@+id/tvCityState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Natural de São Paulo, do estado de São Paulo"
+                android:textSize="@dimen/text_size"/>
+
+            <TextView
+                android:id="@+id/tvSchooling"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Escolaridade, Ensino Superior Completo "
+                android:textSize="@dimen/text_size"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutGabineteLinear"
+            style="@style/LinearStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Gênero masculino"
-            android:textSize="@dimen/text_size"/>
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView4"
+            <TextView
+                android:id="@+id/textTitleGabinete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gabinete_title"
+                android:textSize="@dimen/title_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCabinetInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/tvPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3215-5744"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="dep.fulanodasilva@camara.leg.br"
+                android:textSize="@dimen/small_text_size"
+                style="@style/TextViewLinkStyle"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/deputyRedesLinear"
+            style="@style/LinearStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Natural de São Paulo, do estado de São Paulo"
-            android:textSize="@dimen/text_size"/>
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView5"
+            <TextView
+                android:id="@+id/textViewTitleRedes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/redes_title"
+                android:textSize="@dimen/title_text_size"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSocialMedia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/seeDeputyCostsButton"
+            style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Escolaridade, Ensino Superior Completo "
-            android:textSize="@dimen/text_size"/>
-    </LinearLayout>
+            android:layout_margin="@dimen/base_margin"
+            android:text="@string/see_costs_btn" />
 
-    <LinearLayout
-        android:id="@+id/linearLayoutGabineteLinear"
-        style="@style/LinearStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deputyPersonalInfosLinear">
-
-        <TextView
-            android:id="@+id/textTitleGabinete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/gabinete_title"
-            android:textSize="@dimen/title_text_size"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textNumberGabinete"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="3215-5744"
-            android:textSize="@dimen/text_size" />
-
-        <TextView
-            android:id="@+id/textEmailGabinete"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="dep.fulanodasilva@camara.leg.br"
-            android:textSize="@dimen/small_text_size"
-            style="@style/TextViewLinkStyle"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/deputyRedesLinear"
-        style="@style/LinearStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutGabineteLinear">
-
-        <TextView
-            android:id="@+id/textViewTitleRedes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/redes_title"
-            android:textSize="@dimen/title_text_size"
-            android:textStyle="bold" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/seeDeputyCostsButton"
-        style="@style/ButtonStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/base_margin"
-        android:text="@string/see_costs_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deputyRedesLinear" />
-
+        </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

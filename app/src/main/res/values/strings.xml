@@ -4,6 +4,10 @@
     <string name="gabinete_title">Gabinete</string>
     <string name="redes_title">Redes</string>
     <string name="see_costs_btn">Ver despesas do deputado</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="born_in">Nascido em %1$s</string>
+    <string name="gender">Gênero %1$s</string>
+    <string name="natural">Natural de %1$s, do estado de %2$s</string>
+    <string name="schooling">Escolaridade %1$s</string>
+    <string name="cabinet">Prédio %1$s andar %2$s sala %3$s</string>
 </resources>

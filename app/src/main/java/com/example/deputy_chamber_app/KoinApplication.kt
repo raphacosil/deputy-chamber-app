@@ -42,6 +42,6 @@ val presentationModule = module {
         DeputyListViewModel(get())
     }
     viewModel {
-        DeputyDetailViewModel()
+        DeputyDetailViewModel(get())
     }
 }

@@ -42,7 +42,6 @@ class DeputyListFragment : Fragment(), OnDeputyItemClickListener {
             Toast.makeText(requireContext(), "Error fetching deputies", Toast.LENGTH_SHORT).show()
             loading(false)
         }
-
     }
 
     private fun setupObserver() {
