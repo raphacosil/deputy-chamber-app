@@ -2,16 +2,16 @@
     <item
         android:id="@+id/deputies"
         android:enabled="true"
-        android:icon="@drawable/users_alt"
+        android:icon="@drawable/group_24px"
         android:title="Candidatos" />
     <item
         android:id="@+id/podium"
         android:enabled="true"
-        android:icon="@drawable/podium"
+        android:icon="@drawable/podium_24px"
         android:title="Partidos" />
     <item
         android:id="@+id/file"
         android:enabled="true"
-        android:icon="@drawable/file_edit_alt"
+        android:icon="@drawable/contract_edit_24px"
         android:title="Proposições" />
 </menu>

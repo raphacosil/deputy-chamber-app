@@ -52,6 +52,8 @@
         app:itemIconSize="@dimen/icon_size"
         app:itemIconTint="@color/bottom_nav_color"
         app:itemTextColor="@color/bottom_nav_color"
-        app:menu="@menu/bottom_navigation_menu"/>
+        app:menu="@menu/bottom_navigation_menu"
+        android:background="@color/card_background"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
