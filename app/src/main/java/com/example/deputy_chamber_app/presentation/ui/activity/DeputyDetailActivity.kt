@@ -1,6 +1,8 @@
 package com.example.deputy_chamber_app.presentation.ui.activity
 
+import android.content.Intent
 import android.content.res.ColorStateList
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -41,7 +43,6 @@ class DeputyDetailActivity : AppCompatActivity(), OnSocialMediaItemClickListener
             setupObserver()
         } catch (e: Exception) {
             Log.d("DeputyListFragment", "onViewCreated: $e")
-            Toast.makeText(this, "Error fetching deputies", Toast.LENGTH_SHORT).show()
             loading(false)
         }
     }
@@ -93,13 +94,27 @@ class DeputyDetailActivity : AppCompatActivity(), OnSocialMediaItemClickListener
             binding.tvPhone.paintFlags =
                 binding.tvPhone.paintFlags or android.graphics.Paint.UNDERLINE_TEXT_FLAG
 
+            binding.tvPhone.setOnClickListener {
+                val intent = Intent(Intent.ACTION_DIAL)
+                intent.data = Uri.parse("tel:${deputyInfo.phone}")
+                startActivity(intent)
+            }
+
             deputyInfo.email.let {
                 if (it == "") binding.tvEmail.visibility = View.GONE else binding.tvEmail.text = it
             }
             binding.tvEmail.paintFlags =
                 binding.tvEmail.paintFlags or android.graphics.Paint.UNDERLINE_TEXT_FLAG
 
+            binding.tvEmail.setOnClickListener {
+                val intent = Intent(Intent.ACTION_SENDTO)
+                intent.data = Uri.parse("mailto:${deputyInfo.email}")
+                startActivity(intent)
+            }
+
             setupLinkRecycler(deputyInfo.socialMedia)
+
+            loading(false)
         }
     }
 
@@ -112,7 +127,7 @@ class DeputyDetailActivity : AppCompatActivity(), OnSocialMediaItemClickListener
     }
 
     private fun setupLinkRecycler(links: List<String>?) {
-        if (links != null) {
+        if (!links.isNullOrEmpty()) {
             binding.rvSocialMedia.apply {
                 val deputyItemListAdapter = SocialMediaAdapter(
                     links,
@@ -210,6 +225,7 @@ class DeputyDetailActivity : AppCompatActivity(), OnSocialMediaItemClickListener
     }
 
     override fun onSocialMediaItemClick(url: String) {
-        TODO("Not yet implemented")
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 }

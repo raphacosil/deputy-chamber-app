@@ -91,9 +91,10 @@
 
                     <View
                         android:id="@+id/vIcon"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
                         android:background="@drawable/status_style"
                         android:backgroundTint="@color/blue" />
 
@@ -104,7 +105,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/inter_18pt_bold"
                         android:paddingStart="6dp"
-                        android:text="Ativo"
+                        android:text="TextView"
                         android:textAlignment="center"
                         android:textSize="@dimen/title_text_size" />
                 </LinearLayout>
