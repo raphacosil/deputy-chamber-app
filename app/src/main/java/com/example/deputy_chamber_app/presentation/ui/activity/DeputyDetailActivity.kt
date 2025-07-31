@@ -7,15 +7,21 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.deputy_chamber_app.R
 import com.example.deputy_chamber_app.databinding.ActivityDeputyDetailBinding
 import com.example.deputy_chamber_app.domain.entity.DeputyDetail
+import com.example.deputy_chamber_app.presentation.ui.view.adapter.DeputyAdapter
+import com.example.deputy_chamber_app.presentation.ui.view.adapter.SocialMediaAdapter
+import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnSocialMediaItemClickListener
+import com.example.deputy_chamber_app.presentation.ui.view.style.SpaceItemDecoration
 import com.example.deputy_chamber_app.presentation.viewmodel.DeputyDetailViewModel
 import com.example.deputy_chamber_app.presentation.viewmodel.action.DeputyDetailAction
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DeputyDetailActivity : AppCompatActivity() {
+class DeputyDetailActivity : AppCompatActivity(), OnSocialMediaItemClickListener {
     private lateinit var binding: ActivityDeputyDetailBinding
     private val viewModel: DeputyDetailViewModel by viewModel()
 
@@ -84,9 +90,16 @@ class DeputyDetailActivity : AppCompatActivity() {
             deputyInfo.phone.let {
                 if (it == "") binding.tvPhone.visibility = View.GONE else binding.tvPhone.text = it
             }
+            binding.tvPhone.paintFlags =
+                binding.tvPhone.paintFlags or android.graphics.Paint.UNDERLINE_TEXT_FLAG
+
             deputyInfo.email.let {
                 if (it == "") binding.tvEmail.visibility = View.GONE else binding.tvEmail.text = it
             }
+            binding.tvEmail.paintFlags =
+                binding.tvEmail.paintFlags or android.graphics.Paint.UNDERLINE_TEXT_FLAG
+
+            setupLinkRecycler(deputyInfo.socialMedia)
         }
     }
 
@@ -95,6 +108,21 @@ class DeputyDetailActivity : AppCompatActivity() {
             binding.progressBar.visibility = View.VISIBLE
         } else {
             binding.progressBar.visibility = View.GONE
+        }
+    }
+
+    private fun setupLinkRecycler(links: List<String>?) {
+        if (links != null) {
+            binding.rvSocialMedia.apply {
+                val deputyItemListAdapter = SocialMediaAdapter(
+                    links,
+                    this@DeputyDetailActivity
+                )
+                adapter = deputyItemListAdapter
+                layoutManager = LinearLayoutManager(context)
+            }
+        } else {
+            binding.deputyRedesLinear.visibility = View.GONE
         }
     }
 
@@ -179,5 +207,9 @@ class DeputyDetailActivity : AppCompatActivity() {
         return s.split(" ").joinToString(" ") {
             it.lowercase().replaceFirstChar { c -> c.uppercaseChar() }
         }
+    }
+
+    override fun onSocialMediaItemClick(url: String) {
+        TODO("Not yet implemented")
     }
 }

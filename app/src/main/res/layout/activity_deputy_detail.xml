@@ -174,14 +174,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="3215-5744"
-                android:textSize="@dimen/text_size" />
+                android:textSize="@dimen/text_size"
+                style="@style/TextViewLinkStyle"
+                />
 
             <TextView
                 android:id="@+id/tvEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="dep.fulanodasilva@camara.leg.br"
-                android:textSize="@dimen/small_text_size"
+                android:textSize="@dimen/text_size"
                 style="@style/TextViewLinkStyle"
                 />
 
@@ -208,13 +210,19 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/seeDeputyCostsButton"
-            style="@style/ButtonStyle"
+        <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/base_margin"
-            android:text="@string/see_costs_btn" />
+            android:text="@string/see_costs_btn"
+            android:layout_marginVertical="@dimen/linear_layout_margin_top_bottom"
+            android:layout_marginHorizontal="@dimen/linear_layout_margin_sides"
+            android:padding="8dp"
+            app:icon="@drawable/attach_money_24px"
+            app:iconGravity="textStart"
+            app:iconSize="32dp"
+            app:iconTint="@color/button_text"
+            style="@style/ButtonStyle"
+            />
 
         </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
