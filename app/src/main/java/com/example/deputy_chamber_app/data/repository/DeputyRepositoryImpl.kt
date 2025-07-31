@@ -60,12 +60,12 @@ fun mapToDeputyDetail(detailResponse: DeputyDetailResponse?): DeputyDetail? {
             birthState = detailResponse.data.birthState,
             birthMunicipality = detailResponse.data.birthMunicipality,
             schooling = detailResponse.data.schooling,
-            name = detailResponse.data.lastStatus.cabinet.name,
-            building = detailResponse.data.lastStatus.cabinet.building,
-            room = detailResponse.data.lastStatus.cabinet.room,
-            floor = detailResponse.data.lastStatus.cabinet.floor,
-            phone = detailResponse.data.lastStatus.cabinet.phone,
-            email = detailResponse.data.lastStatus.email,
+            cabinetName = detailResponse.data.lastStatus.cabinet?.name,
+            building = detailResponse.data.lastStatus.cabinet?.building,
+            room = detailResponse.data.lastStatus.cabinet?.room,
+            floor = detailResponse.data.lastStatus.cabinet?.floor,
+            phone = detailResponse.data.lastStatus.cabinet?.phone,
+            email = detailResponse.data.lastStatus.cabinet?.email,
             socialMedia = detailResponse.data.socialMedia
         )
     }

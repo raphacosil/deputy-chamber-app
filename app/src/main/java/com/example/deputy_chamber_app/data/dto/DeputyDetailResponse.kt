@@ -30,9 +30,8 @@ data class DeputyInfo(
 
 data class ElectoralInfo(
     val id: Int,
-    val uri: String,
     @SerializedName("nome")
-    val name: String,
+    val electoralName: String,
     @SerializedName("siglaPartido")
     val party: String,
     @SerializedName("uriPartido")
@@ -43,30 +42,25 @@ data class ElectoralInfo(
     val idLegislature: Int,
     @SerializedName("urlFoto")
     val urlPhoto: String,
-    val email: String,
-    @SerializedName("nomeEleitoral")
-    val electoralName: String,
     @SerializedName("situacao")
     val situation: String,
     @SerializedName("condicaoEleitoral")
-    val electoralCondition: String,
-    @SerializedName("descricaoStatus")
-    val description: String,
+    val electoralCondition: String?,
     @SerializedName("gabinete")
-    val cabinet: CabinetInfo
+    val cabinet: CabinetInfo?
 )
 
 data class CabinetInfo(
     @SerializedName("nome")
-    val name: String,
+    val name: String?,
     @SerializedName("predio")
-    val building: String,
+    val building: String?,
     @SerializedName("sala")
-    val room: String,
+    val room: String?,
     @SerializedName("andar")
-    val floor: String,
+    val floor: String?,
     @SerializedName("telefone")
-    val phone: String,
+    val phone: String?,
     @SerializedName("email")
-    val email: String
+    val email: String?
 )

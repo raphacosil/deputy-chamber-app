@@ -42,8 +42,8 @@
             android:orientation="horizontal">
 
             <View
-                android:layout_width="10dp"
-                android:layout_height="120dp"
+                android:layout_width="6dp"
+                android:layout_height="match_parent"
                 android:background="@color/header_background"
                 android:paddingEnd="@dimen/base_padding" />
 
@@ -62,25 +62,25 @@
 
                 <TextView
                     android:id="@+id/tvName"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/title_text_size"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvParty"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text_size" />
 
                 <TextView
                     android:id="@+id/tvUf"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text_size" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -90,15 +90,15 @@
                     tools:layout_editor_absoluteY="1dp">
 
                     <View
-                        android:id="@+id/viewStatusIcon"
-                        android:layout_width="27dp"
-                        android:layout_height="27dp"
+                        android:id="@+id/vIcon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_weight="1"
                         android:background="@drawable/status_style"
                         android:backgroundTint="@color/blue" />
 
                     <TextView
-                        android:id="@+id/textViewStatus"
+                        android:id="@+id/tvSituation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

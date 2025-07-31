@@ -14,11 +14,11 @@ data class DeputyDetail(
     val birthMunicipality: String,
     val schooling: String,
 
-    val name: String,
-    val building: String,
-    val room: String,
-    val floor: String,
-    val phone: String,
+    val cabinetName: String?,
+    val building: String?,
+    val room: String?,
+    val floor: String?,
+    val phone: String?,
     val email: String?,
 
     val socialMedia: List<String>?,

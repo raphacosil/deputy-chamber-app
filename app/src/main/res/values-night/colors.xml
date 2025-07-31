@@ -11,5 +11,8 @@
     <color name="active_indicator_menu">#663B6FCF</color>
 
     <color name="blue">#2B3D8C</color>
+    <color name="yellow">#FFA600</color>
+    <color name="red">#D23330</color>
+    <color name="green">#06963A</color>
     <color name="blue_link">#43A9FF</color>
 </resources>

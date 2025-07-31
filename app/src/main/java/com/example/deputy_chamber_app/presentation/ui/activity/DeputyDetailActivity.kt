@@ -1,10 +1,12 @@
 package com.example.deputy_chamber_app.presentation.ui.activity
 
+import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.deputy_chamber_app.R
 import com.example.deputy_chamber_app.databinding.ActivityDeputyDetailBinding
@@ -57,24 +59,34 @@ class DeputyDetailActivity : AppCompatActivity() {
                 .error(R.drawable.deputy_placeholder)
                 .into(binding.ivDeputyPhoto)
 
-            binding.tvName.text = deputyInfo.civilName
+            binding.tvName.text = capitalize(deputyInfo.civilName)
             binding.tvParty.text = deputyInfo.party
             binding.tvUf.text = deputyInfo.uf
+            setupSituation(deputyInfo.situation)
 
             binding.tvBirthDate.text = getString(R.string.born_in).format(deputyInfo.birthDate)
+
             binding.tvCityState.text = getString(R.string.natural).format(
                 deputyInfo.birthMunicipality,
                 deputyInfo.birthState
             )
-            binding.tvSchooling.text = getString(R.string.schooling).format(deputyInfo.schooling)
+
+            deputyInfo.schooling.let {
+                if (it == "") binding.tvSchooling.visibility =
+                    View.GONE else binding.tvSchooling.text =  getString(R.string.schooling).format(it)
+            }
 
             binding.tvCabinetInfo.text = getString(R.string.cabinet).format(
                 deputyInfo.building,
                 deputyInfo.floor,
                 deputyInfo.room
             )
-            binding.tvPhone.text = deputyInfo.phone
-            binding.tvEmail.text = deputyInfo.email
+            deputyInfo.phone.let {
+                if (it == "") binding.tvPhone.visibility = View.GONE else binding.tvPhone.text = it
+            }
+            deputyInfo.email.let {
+                if (it == "") binding.tvEmail.visibility = View.GONE else binding.tvEmail.text = it
+            }
         }
     }
 
@@ -83,6 +95,89 @@ class DeputyDetailActivity : AppCompatActivity() {
             binding.progressBar.visibility = View.VISIBLE
         } else {
             binding.progressBar.visibility = View.GONE
+        }
+    }
+
+    private fun setupSituation(situation: String) {
+        binding.tvSituation.text = situation
+        when (situation) {
+            "Ativo" -> {
+                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
+                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(this, R.color.blue)
+                )
+                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.blue))
+            }
+            "Inativo" -> {
+                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
+                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(this, R.color.red)
+                )
+                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.red))
+            }
+            "Afastado" -> {
+                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
+                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(this, R.color.yellow)
+                )
+                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.yellow))
+            }
+            "Convocado" -> {
+                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
+                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(this, R.color.green)
+                )
+                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.green))
+            }
+            "Exercício" -> {
+                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
+                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(this, R.color.green)
+                )
+                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.green))
+            }
+            "Fim de Mandato" -> {
+                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
+                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(this, R.color.red)
+                )
+                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.red))
+            }
+            "Licença" -> {
+                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
+                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(this, R.color.yellow)
+                )
+                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.yellow))
+            }
+            "Suplência" -> {
+                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
+                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(this, R.color.yellow)
+                )
+                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.yellow))
+            }
+            "Suspenso" -> {
+                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
+                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(this, R.color.red)
+                )
+                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.red))
+            }
+            "Vacência" -> {
+                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
+                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(this, R.color.green)
+                )
+                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.green))
+            }
+        }
+    }
+
+    private fun capitalize(s: String?): String {
+        if (s.isNullOrBlank()) return ""
+        return s.split(" ").joinToString(" ") {
+            it.lowercase().replaceFirstChar { c -> c.uppercaseChar() }
         }
     }
 }
