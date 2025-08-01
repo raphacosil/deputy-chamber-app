@@ -10,15 +10,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.deputy_chamber_app.R
 import com.example.deputy_chamber_app.databinding.ActivityDeputyDetailBinding
 import com.example.deputy_chamber_app.domain.entity.DeputyDetail
-import com.example.deputy_chamber_app.presentation.ui.view.adapter.DeputyAdapter
 import com.example.deputy_chamber_app.presentation.ui.view.adapter.SocialMediaAdapter
 import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnSocialMediaItemClickListener
-import com.example.deputy_chamber_app.presentation.ui.view.style.SpaceItemDecoration
 import com.example.deputy_chamber_app.presentation.viewmodel.DeputyDetailViewModel
 import com.example.deputy_chamber_app.presentation.viewmodel.action.DeputyDetailAction
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -118,29 +115,6 @@ class DeputyDetailActivity : AppCompatActivity(), OnSocialMediaItemClickListener
         }
     }
 
-    private fun loading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
-    }
-
-    private fun setupLinkRecycler(links: List<String>?) {
-        if (!links.isNullOrEmpty()) {
-            binding.rvSocialMedia.apply {
-                val deputyItemListAdapter = SocialMediaAdapter(
-                    links,
-                    this@DeputyDetailActivity
-                )
-                adapter = deputyItemListAdapter
-                layoutManager = LinearLayoutManager(context)
-            }
-        } else {
-            binding.deputyRedesLinear.visibility = View.GONE
-        }
-    }
-
     private fun setupSituation(situation: String) {
         binding.tvSituation.text = situation
         when (situation) {
@@ -217,6 +191,21 @@ class DeputyDetailActivity : AppCompatActivity(), OnSocialMediaItemClickListener
         }
     }
 
+    private fun setupLinkRecycler(links: List<String>?) {
+        if (!links.isNullOrEmpty()) {
+            binding.rvSocialMedia.apply {
+                val deputyItemListAdapter = SocialMediaAdapter(
+                    links,
+                    this@DeputyDetailActivity
+                )
+                adapter = deputyItemListAdapter
+                layoutManager = LinearLayoutManager(context)
+            }
+        } else {
+            binding.deputyRedesLinear.visibility = View.GONE
+        }
+    }
+
     private fun capitalize(s: String?): String {
         if (s.isNullOrBlank()) return ""
         return s.split(" ").joinToString(" ") {
@@ -227,5 +216,12 @@ class DeputyDetailActivity : AppCompatActivity(), OnSocialMediaItemClickListener
     override fun onSocialMediaItemClick(url: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
+    }
+    private fun loading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 }
