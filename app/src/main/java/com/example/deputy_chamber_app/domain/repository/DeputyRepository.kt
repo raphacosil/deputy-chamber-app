@@ -7,4 +7,6 @@ interface DeputyRepository {
     suspend fun getDeputies(page: Int?): List<DeputyItem>
 
     suspend fun getDeputyDetail(id: Int): DeputyDetail?
+
+    suspend fun getDeputyCosts(id: Int, page: Int?):
 }

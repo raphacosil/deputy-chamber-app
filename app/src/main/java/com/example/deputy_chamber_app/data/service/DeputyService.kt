@@ -1,5 +1,6 @@
 package com.example.deputy_chamber_app.data.service
 
+import com.example.deputy_chamber_app.data.dto.DeputyCostsResponse
 import com.example.deputy_chamber_app.data.dto.DeputyDetailResponse
 import com.example.deputy_chamber_app.data.dto.GetDeputiesResponse
 import retrofit2.Response
@@ -19,4 +20,10 @@ interface DeputyService {
     suspend fun getDeputyDetail(
         @Path("id") id: Int
     ): Response<DeputyDetailResponse>
+
+    @GET("deputados/{id}/despesas")
+    suspend fun getDeputyCosts(
+        @Path("id") id: Int,
+        @Query("pagina") page: Int?
+    ): Response<DeputyCostsResponse>
 }
