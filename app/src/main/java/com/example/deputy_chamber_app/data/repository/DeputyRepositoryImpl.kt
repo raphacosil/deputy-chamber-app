@@ -1,9 +1,11 @@
 package com.example.deputy_chamber_app.data.repository
 
 import android.util.Log
+import com.example.deputy_chamber_app.data.dto.DeputyCostsResponse
 import com.example.deputy_chamber_app.data.dto.DeputyDetailResponse
 import com.example.deputy_chamber_app.data.dto.GetDeputiesResponse
 import com.example.deputy_chamber_app.data.service.DeputyService
+import com.example.deputy_chamber_app.domain.entity.CostItem
 import com.example.deputy_chamber_app.domain.entity.DeputyDetail
 import com.example.deputy_chamber_app.domain.entity.DeputyItem
 import com.example.deputy_chamber_app.domain.repository.DeputyRepository
@@ -23,13 +25,22 @@ class DeputyRepositoryImpl(
 
     override suspend fun getDeputyDetail(id: Int): DeputyDetail? {
         val response = service.getDeputyDetail(id)
-        Log.e("DeputyRepositoryImpl", "getDeputyDetail: $response")
         if (response.isSuccessful) {
             return mapToDeputyDetail(
                 response.body()
             )
         }
         return null
+    }
+
+    override suspend fun getDeputyCosts(id: Int, page: Int?): List<CostItem> {
+        val response = service.getDeputyCosts (id, page)
+        if (response.isSuccessful) {
+            return mapToCostItem(
+                response.body()
+            )
+        }
+        return emptyList()
     }
 }
 
@@ -70,4 +81,18 @@ fun mapToDeputyDetail(detailResponse: DeputyDetailResponse?): DeputyDetail? {
         )
     }
     return null
+}
+
+fun mapToCostItem(deputyCostsResponse: DeputyCostsResponse?): List<CostItem>{
+    return deputyCostsResponse?.data?.map {
+        CostItem(
+            type = it.type,
+            supplier = it.supplier,
+            supplierCpfCnpj = it.supplierCpfCnpj,
+            installment = it.installment,
+            value = it.value,
+            documentType = it.documentType,
+            documentLink = it.documentLink
+        )
+    } ?: emptyList()
 }
