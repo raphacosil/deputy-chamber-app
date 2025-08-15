@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class GetDeputiesResponse(
     @SerializedName("dados")
     val data: List<DeputyItemDto>,
+
     @SerializedName("links")
     val links: List<LinkDto>
 )
