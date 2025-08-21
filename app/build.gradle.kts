@@ -69,14 +69,10 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
 
     // Koin
-    implementation ("io.insert-koin:koin-bom:3.6.0-wasm-alpha2")
-    implementation ("io.insert-koin:koin-android:3.6.0-wasm-alpha2")
-
-    // Compose
-    implementation ("io.insert-koin:koin-androidx-compose:3.6.0-wasm-alpha2")
-
-    // Work Manager
-    implementation ("io.insert-koin:koin-androidx-workmanager:3.6.0-wasm-alpha2")
+    implementation(platform("io.insert-koin:koin-bom:3.6.0-wasm-alpha2"))
+    implementation("io.insert-koin:koin-android")
+    implementation("io.insert-koin:koin-androidx-compose")
+    implementation("io.insert-koin:koin-androidx-workmanager")
 
     // Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
