@@ -6,45 +6,84 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.deputy_chamber_app.R
 import com.example.deputy_chamber_app.databinding.DeputyItemBinding
+import com.example.deputy_chamber_app.databinding.PaginationItemBinding
 import com.example.deputy_chamber_app.domain.entity.DeputyItem
+import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnAdvancePaginationClickListener
 import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnDeputyItemClickListener
+import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnReturnPaginationClickListener
+
+const val VIEW_TYPE_ITEM = 0
+const val VIEW_TYPE_FOOTER = 1
 
 class DeputyAdapter(
     private val deputyItemList: List<DeputyItem>,
-    private val onDeputyItemClickListener: OnDeputyItemClickListener
-) : RecyclerView.Adapter<DeputyAdapter.DeputyItemViewHolder>() {
+    private val onDeputyItemClickListener: OnDeputyItemClickListener,
+    private val onReturnPaginationClickListener: OnReturnPaginationClickListener,
+    private val onAdvancePaginationClickListener: OnAdvancePaginationClickListener
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    inner class DeputyItemViewHolder(val binding: DeputyItemBinding) : RecyclerView.ViewHolder(binding.root)
-    override fun getItemCount() = deputyItemList.size
+    override fun getItemCount() = deputyItemList.size + 1
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeputyItemViewHolder {
-        return DeputyItemViewHolder(DeputyItemBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        ))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == VIEW_TYPE_ITEM) {
+                val binding = DeputyItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                DeputyItemViewHolder(binding)
+            } else {
+                val binding = PaginationItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                PaginationItemHolder(binding)
+
+        }
     }
 
-    override fun onBindViewHolder(holder: DeputyItemViewHolder, position: Int) {
-        holder.binding.apply {
-            val deputyItem = deputyItemList[position]
-            textViewName.text = deputyItem.name
-            textViewEmail.text = deputyItem.email
-            textViewEmail.paintFlags = textViewEmail.paintFlags or android.graphics.Paint.UNDERLINE_TEXT_FLAG
-            textViewParty.text = deputyItem.party
-            textViewUf.text = mapUf[deputyItem.uf]
+    override fun getItemViewType(position: Int): Int {
+        return if (position == deputyItemList.size) VIEW_TYPE_FOOTER else VIEW_TYPE_ITEM
+    }
 
-            Glide.with(holder.binding.imageView.context)
-                .load(deputyItem.imageUrl)
-                .placeholder(R.drawable.deputy_placeholder)
-                .error(R.drawable.deputy_placeholder)
-                .into(holder.binding.imageView)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is DeputyItemViewHolder && position < deputyItemList.size){
+            holder.bind(deputyItemList[position])
         }
+
 
         holder.itemView.setOnClickListener {
             onDeputyItemClickListener.onDeputyItemClick(deputyItemList[position].id)
         }
     }
+
+    inner class DeputyItemViewHolder(
+        private val binding: DeputyItemBinding,
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(deputyItem: DeputyItem){
+            binding.apply {
+                textViewName.text = deputyItem.name
+                textViewEmail.text = deputyItem.email
+                textViewEmail.paintFlags = textViewEmail.paintFlags or android.graphics.Paint.UNDERLINE_TEXT_FLAG
+                textViewParty.text = deputyItem.party
+                textViewUf.text = mapUf[deputyItem.uf]
+
+                Glide.with(binding.root)
+                    .load(deputyItem.imageUrl)
+                    .placeholder(R.drawable.deputy_placeholder)
+                    .error(R.drawable.deputy_placeholder)
+                    .into(imageView)
+            }
+        }
+    }
+
+    inner class PaginationItemHolder(
+        binding: PaginationItemBinding
+    ): RecyclerView.ViewHolder(binding.root){
+        init {
+            binding.btnAdvance.setOnClickListener {
+                onAdvancePaginationClickListener.onAdvancePaginationClick()
+            }
+            binding.btnReturn.setOnClickListener {
+                onReturnPaginationClickListener.onReturnPaginationClick()
+            }
+        }
+    }
+
+
     private val mapUf = mapOf(
         "AC" to "Acre",
         "AL" to "Alagoas",
