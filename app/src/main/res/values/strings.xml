@@ -10,4 +10,6 @@
     <string name="natural">Natural de %1$s, do estado de %2$s</string>
     <string name="schooling">Escolaridade %1$s</string>
     <string name="cabinet">Prédio %1$s andar %2$s sala %3$s</string>
+    <string name="advance_button">Advance page button</string>
+    <string name="return_page_button">Return page button</string>
 </resources>

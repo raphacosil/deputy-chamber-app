@@ -31,7 +31,6 @@ class DeputyAdapter(
             } else {
                 val binding = PaginationItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 PaginationItemHolder(binding)
-
         }
     }
 
@@ -43,7 +42,6 @@ class DeputyAdapter(
         if (holder is DeputyItemViewHolder && position < deputyItemList.size){
             holder.bind(deputyItemList[position])
         }
-
 
         holder.itemView.setOnClickListener {
             onDeputyItemClickListener.onDeputyItemClick(deputyItemList[position].id)
@@ -82,7 +80,6 @@ class DeputyAdapter(
             }
         }
     }
-
 
     private val mapUf = mapOf(
         "AC" to "Acre",

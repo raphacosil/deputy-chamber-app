@@ -41,7 +41,8 @@ class DeputyListFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.addItemDecoration(SpaceItemDecoration(32))
         loading(true)
         try {
             viewModel.handleAction(DeputyListAction.LoadData(null))
@@ -55,8 +56,10 @@ class DeputyListFragment :
 
     private fun setupObserver() {
         viewModel.deputyListState .observe(viewLifecycleOwner) {
+            binding.recyclerView.visibility = View.GONE
             loading(it.isLoading)
             setupRecycler(it.data?.itemList?: emptyList())
+            binding.recyclerView.visibility = View.VISIBLE
             nextPage = it.data?.nextPage?:2
             previousPage = it.data?.nextPage?:1
             it.errorMessage?.let { error ->
@@ -72,8 +75,6 @@ class DeputyListFragment :
             this@DeputyListFragment,
             )
         adapter = deputyItemListAdapter
-        layoutManager = LinearLayoutManager(context)
-        addItemDecoration(SpaceItemDecoration(32))
     }
 
     private fun loading(isLoading: Boolean) {
@@ -95,6 +96,8 @@ class DeputyListFragment :
     }
 
     override fun onReturnPaginationClick() {
-        viewModel.handleAction(DeputyListAction.LoadData(previousPage))
+        if (previousPage != 1) {
+            viewModel.handleAction(DeputyListAction.LoadData(previousPage))
+        }
     }
 }

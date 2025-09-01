@@ -7,15 +7,23 @@
 
     <ImageButton
         android:id="@+id/btnReturn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
         android:background="@color/transparent"
-        app:srcCompat="@drawable/keyboard_arrow_left_24px" />
+        android:contentDescription="@string/return_page_button"
+        app:srcCompat="@drawable/keyboard_arrow_left_24px"
+        android:paddingStart="@dimen/small_padding"
+        android:paddingEnd="@dimen/small_padding"
+        />
 
     <ImageButton
         android:id="@+id/btnAdvance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
         android:background="@color/transparent"
-        app:srcCompat="@drawable/keyboard_arrow_right_24px" />
+        android:contentDescription="@string/advance_button"
+        app:srcCompat="@drawable/keyboard_arrow_right_24px"
+        android:paddingStart="@dimen/small_padding"
+        android:paddingEnd="@dimen/small_padding"
+        />
 </androidx.appcompat.widget.LinearLayoutCompat>
