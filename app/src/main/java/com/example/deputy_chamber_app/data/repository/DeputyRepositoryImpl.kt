@@ -1,11 +1,11 @@
 package com.example.deputy_chamber_app.data.repository
 
-import android.util.Log
 import com.example.deputy_chamber_app.data.dto.DeputyCostsResponse
 import com.example.deputy_chamber_app.data.dto.DeputyDetailResponse
 import com.example.deputy_chamber_app.data.dto.GetDeputiesResponse
 import com.example.deputy_chamber_app.data.service.DeputyService
 import com.example.deputy_chamber_app.domain.entity.CostItem
+import com.example.deputy_chamber_app.domain.entity.DeputiesPage
 import com.example.deputy_chamber_app.domain.entity.DeputyDetail
 import com.example.deputy_chamber_app.domain.entity.DeputyItem
 import com.example.deputy_chamber_app.domain.repository.DeputyRepository
@@ -13,14 +13,18 @@ import com.example.deputy_chamber_app.domain.repository.DeputyRepository
 class DeputyRepositoryImpl(
     private val service: DeputyService
 ): DeputyRepository {
-    override suspend fun getDeputies(page: Int?): List<DeputyItem> {
+    override suspend fun getDeputies(page: Int?): DeputiesPage? {
         val response = service.getDeputies(page)
         if (response.isSuccessful) {
-            return mapToDeputyItem(
-                response.body()
+            return DeputiesPage(
+                mapToDeputyItem(
+                    response.body()
+                ),
+                getPageNumber(response.body()?.links?.find { it.rel == "previous" }?.href) ,
+                getPageNumber(response.body()?.links?.find { it.rel == "next" }?.href),
             )
         }
-        return emptyList()
+        return null
     }
 
     override suspend fun getDeputyDetail(id: Int): DeputyDetail? {
@@ -95,4 +99,12 @@ fun mapToCostItem(deputyCostsResponse: DeputyCostsResponse?): List<CostItem>{
             documentLink = it.documentLink
         )
     } ?: emptyList()
+}
+
+fun getPageNumber(url: String?): Int {
+    return if (url != null) {
+        Regex("pagina=(\\d+)").find(url)?.groupValues?.get(1)?.toInt() ?: 0
+    } else {
+        0
+    }
 }

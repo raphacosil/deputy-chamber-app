@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.deputy_chamber_app.domain.entity.DeputyItem
+import com.example.deputy_chamber_app.domain.entity.DeputiesPage
 import com.example.deputy_chamber_app.domain.usecase.GetDeputiesUseCase
 import com.example.deputy_chamber_app.presentation.viewmodel.action.DeputyListAction
 import com.example.deputy_chamber_app.presentation.viewmodel.state.DeputyListState
@@ -33,7 +33,7 @@ class DeputyListViewModel(
         getDeputyList(page)
     }
 
-    private fun onDataLoaded(data: List<DeputyItem>) {
+    private fun onDataLoaded(data: DeputiesPage) {
         _deputyListState.value = _deputyListState.value?.copy(isLoading = false, data = data)
     }
 
@@ -45,7 +45,14 @@ class DeputyListViewModel(
         viewModelScope.launch {
             try {
                 val result = getDeputiesUseCase.invoke(page)
-                onDataLoaded(result)
+                if (result != null) {
+                    onDataLoaded(result)
+                } else {
+                    Log.e("DeputyListViewModel",
+                        "Error fetching todos | MESSAGE Empty response"
+                    )
+                    onError("Empty response")
+                }
             } catch (e: Exception) {
                 Log.e("DeputyListViewModel",
                     "Error fetching todos | MESSAGE ${e.message} | CAUSE ${e.cause}"

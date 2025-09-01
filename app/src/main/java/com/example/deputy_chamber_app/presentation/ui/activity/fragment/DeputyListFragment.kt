@@ -13,15 +13,24 @@ import com.example.deputy_chamber_app.databinding.FragmentDeputyListBinding
 import com.example.deputy_chamber_app.presentation.ui.activity.DeputyDetailActivity
 import com.example.deputy_chamber_app.domain.entity.DeputyItem
 import com.example.deputy_chamber_app.presentation.ui.view.adapter.DeputyAdapter
+import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnAdvancePaginationClickListener
 import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnDeputyItemClickListener
+import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnReturnPaginationClickListener
 import com.example.deputy_chamber_app.presentation.ui.view.style.SpaceItemDecoration
 import com.example.deputy_chamber_app.presentation.viewmodel.DeputyListViewModel
 import com.example.deputy_chamber_app.presentation.viewmodel.action.DeputyListAction
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DeputyListFragment : Fragment(), OnDeputyItemClickListener {
+class DeputyListFragment :
+    Fragment(),
+    OnDeputyItemClickListener,
+    OnAdvancePaginationClickListener,
+    OnReturnPaginationClickListener
+{
     private lateinit var binding: FragmentDeputyListBinding
     private val viewModel: DeputyListViewModel by viewModel()
+    private var nextPage: Int = 2
+    private var previousPage: Int = 1
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,27 +56,24 @@ class DeputyListFragment : Fragment(), OnDeputyItemClickListener {
     private fun setupObserver() {
         viewModel.deputyListState .observe(viewLifecycleOwner) {
             loading(it.isLoading)
-            setupRecycler(it.data)
+            setupRecycler(it.data?.itemList?: emptyList())
+            nextPage = it.data?.nextPage?:2
+            previousPage = it.data?.nextPage?:1
             it.errorMessage?.let { error ->
                 Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
             }
         }
     }
-
     private fun setupRecycler(feedList: List<DeputyItem>) = binding.recyclerView.apply {
         val deputyItemListAdapter = DeputyAdapter(
             feedList,
-            this@DeputyListFragment
-        )
+            this@DeputyListFragment,
+            this@DeputyListFragment,
+            this@DeputyListFragment,
+            )
         adapter = deputyItemListAdapter
         layoutManager = LinearLayoutManager(context)
         addItemDecoration(SpaceItemDecoration(32))
-    }
-
-    override fun onDeputyItemClick(deputyId: Int) {
-        val intent = Intent(requireContext(), DeputyDetailActivity::class.java)
-        intent.putExtra("deputyId", deputyId)
-        startActivity(intent)
     }
 
     private fun loading(isLoading: Boolean) {
@@ -76,5 +82,19 @@ class DeputyListFragment : Fragment(), OnDeputyItemClickListener {
         } else {
             binding.progressBar.visibility = View.GONE
         }
+    }
+
+    override fun onDeputyItemClick(deputyId: Int) {
+        val intent = Intent(requireContext(), DeputyDetailActivity::class.java)
+        intent.putExtra("deputyId", deputyId)
+        startActivity(intent)
+    }
+
+    override fun onAdvancePaginationClick() {
+        viewModel.handleAction(DeputyListAction.LoadData(nextPage))
+    }
+
+    override fun onReturnPaginationClick() {
+        viewModel.handleAction(DeputyListAction.LoadData(previousPage))
     }
 }
