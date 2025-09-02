@@ -30,7 +30,7 @@ class DeputyListFragment :
     private lateinit var binding: FragmentDeputyListBinding
     private val viewModel: DeputyListViewModel by viewModel()
     private var nextPage: Int = 2
-    private var previousPage: Int = 1
+    private var previousPage: Int = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,7 +61,7 @@ class DeputyListFragment :
             setupRecycler(it.data?.itemList?: emptyList())
             binding.recyclerView.visibility = View.VISIBLE
             nextPage = it.data?.nextPage?:2
-            previousPage = it.data?.nextPage?:1
+            previousPage = it.data?.previousPage?:0
             it.errorMessage?.let { error ->
                 Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
             }
@@ -96,7 +96,7 @@ class DeputyListFragment :
     }
 
     override fun onReturnPaginationClick() {
-        if (previousPage != 1) {
+        if (previousPage != 0) {
             viewModel.handleAction(DeputyListAction.LoadData(previousPage))
         }
     }

@@ -7,8 +7,8 @@
 
     <ImageButton
         android:id="@+id/btnReturn"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
+        android:layout_width="@dimen/pagination_icon"
+        android:layout_height="@dimen/pagination_icon"
         android:background="@color/transparent"
         android:contentDescription="@string/return_page_button"
         app:srcCompat="@drawable/keyboard_arrow_left_24px"
@@ -18,8 +18,8 @@
 
     <ImageButton
         android:id="@+id/btnAdvance"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
+        android:layout_width="@dimen/pagination_icon"
+        android:layout_height="@dimen/pagination_icon"
         android:background="@color/transparent"
         android:contentDescription="@string/advance_button"
         app:srcCompat="@drawable/keyboard_arrow_right_24px"
