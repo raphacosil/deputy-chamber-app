@@ -15,12 +15,12 @@ import com.example.deputy_chamber_app.R
 import com.example.deputy_chamber_app.databinding.ActivityDeputyDetailBinding
 import com.example.deputy_chamber_app.domain.entity.DeputyDetail
 import com.example.deputy_chamber_app.presentation.ui.view.adapter.SocialMediaAdapter
-import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnSocialMediaItemClickListener
+import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnLinkClickListener
 import com.example.deputy_chamber_app.presentation.viewmodel.DeputyDetailViewModel
 import com.example.deputy_chamber_app.presentation.viewmodel.action.DeputyDetailAction
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DeputyDetailActivity : AppCompatActivity(), OnSocialMediaItemClickListener {
+class DeputyDetailActivity : AppCompatActivity(), OnLinkClickListener {
     private lateinit var binding: ActivityDeputyDetailBinding
     private val viewModel: DeputyDetailViewModel by viewModel()
 
@@ -213,7 +213,7 @@ class DeputyDetailActivity : AppCompatActivity(), OnSocialMediaItemClickListener
         }
     }
 
-    override fun onSocialMediaItemClick(url: String) {
+    override fun onLinkClick(url: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
     }

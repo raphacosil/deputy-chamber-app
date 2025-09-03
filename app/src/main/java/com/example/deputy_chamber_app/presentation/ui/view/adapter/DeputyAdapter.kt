@@ -5,15 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.deputy_chamber_app.R
+import com.example.deputy_chamber_app.VIEW_TYPE_FOOTER
+import com.example.deputy_chamber_app.VIEW_TYPE_ITEM
 import com.example.deputy_chamber_app.databinding.DeputyItemBinding
 import com.example.deputy_chamber_app.databinding.PaginationItemBinding
 import com.example.deputy_chamber_app.domain.entity.DeputyItem
 import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnAdvancePaginationClickListener
 import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnDeputyItemClickListener
 import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnReturnPaginationClickListener
-
-const val VIEW_TYPE_ITEM = 0
-const val VIEW_TYPE_FOOTER = 1
 
 class DeputyAdapter(
     private val deputyItemList: List<DeputyItem>,

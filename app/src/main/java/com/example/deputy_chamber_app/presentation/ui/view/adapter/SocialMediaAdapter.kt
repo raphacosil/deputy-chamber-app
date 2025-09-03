@@ -3,15 +3,12 @@ package com.example.deputy_chamber_app.presentation.ui.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.deputy_chamber_app.R
-import com.example.deputy_chamber_app.databinding.DeputyItemBinding
 import com.example.deputy_chamber_app.databinding.TvSocialMediaItemBinding
-import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnSocialMediaItemClickListener
+import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnLinkClickListener
 
 class SocialMediaAdapter(
     private val socialMediaItemList: List<String>,
-    private val onSocialMediaItemClickListener: OnSocialMediaItemClickListener
+    private val onLinkClickListener: OnLinkClickListener
 ) : RecyclerView.Adapter<SocialMediaAdapter.Holder>() {
 
     inner class Holder(val binding: TvSocialMediaItemBinding) : RecyclerView.ViewHolder(binding.root)
@@ -35,7 +32,7 @@ class SocialMediaAdapter(
         }
 
         holder.itemView.setOnClickListener {
-            onSocialMediaItemClickListener.onSocialMediaItemClick(socialMediaItemList[position])
+            onLinkClickListener.onLinkClick(socialMediaItemList[position])
         }
     }
 }
