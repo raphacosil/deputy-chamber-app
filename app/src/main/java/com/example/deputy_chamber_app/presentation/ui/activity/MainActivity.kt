@@ -19,34 +19,38 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.frameLayout, defaultFragment)
             .commit()
 
+
         binding.bottomNavigation.setOnItemSelectedListener { item ->
-            when(item.itemId) {
+            val currentFragment = supportFragmentManager.findFragmentById(R.id.frameLayout)
+
+            when (item.itemId) {
                 R.id.deputies -> {
-                    val deputyListFragment = DeputyListFragment()
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.frameLayout, deputyListFragment)
-                        .commit()
+                    if (currentFragment !is DeputyListFragment) {
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.frameLayout, DeputyListFragment())
+                            .commit()
+                    }
                     true
                 }
                 R.id.podium -> {
-//                    val deputyPodiumFragment = DeputyPodiumFragment()
-//                    supportFragmentManager
-//                        .beginTransaction()
-//                        .replace(R.id.frameLayout, deputyPodiumFragment)
-//                        .commit()
+//                    if (currentFragment !is DeputyPodiumFragment) {
+//                        supportFragmentManager.beginTransaction()
+//                            .replace(R.id.frameLayout, DeputyPodiumFragment())
+//                            .commit()
+//                    }
                     true
                 }
                 R.id.file -> {
-//                    val deputyFileFragment = DeputyFileFragment()
-//                    supportFragmentManager
-//                        .beginTransaction()
-//                        .replace(R.id.frameLayout, deputyFileFragment)
-//                        .commit()
+//                    if (currentFragment !is DeputyFileFragment) {
+//                        supportFragmentManager.beginTransaction()
+//                            .replace(R.id.frameLayout, DeputyFileFragment())
+//                            .commit()
+//                    }
                     true
                 }
                 else -> false
             }
         }
+
     }
 }

@@ -3,15 +3,15 @@
         android:id="@+id/deputies"
         android:enabled="true"
         android:icon="@drawable/group_24px"
-        android:title="Candidatos" />
+        android:title="@string/tx_deputy_menu" />
     <item
         android:id="@+id/podium"
         android:enabled="true"
         android:icon="@drawable/podium_24px"
-        android:title="Partidos" />
+        android:title="@string/tx_parties_menu" />
     <item
         android:id="@+id/file"
         android:enabled="true"
         android:icon="@drawable/contract_edit_24px"
-        android:title="Proposições" />
+        android:title="@string/tx_propositions_menu" />
 </menu>
