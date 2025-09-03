@@ -56,10 +56,11 @@ class DeputyListFragment :
 
     private fun setupObserver() {
         viewModel.deputyListState .observe(viewLifecycleOwner) {
-            binding.recyclerView.visibility = View.GONE
             loading(it.isLoading)
             setupRecycler(it.data?.itemList?: emptyList())
-            binding.recyclerView.visibility = View.VISIBLE
+
+            binding.recyclerView.visibility = if(it.isLoading) View.GONE else View.VISIBLE
+
             nextPage = it.data?.nextPage?:2
             previousPage = it.data?.previousPage?:0
             it.errorMessage?.let { error ->

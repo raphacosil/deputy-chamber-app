@@ -4,7 +4,7 @@
     <dimen name="base_margin">2dp</dimen>
     <dimen name="linear_layout_margin_sides">16dp</dimen>
     <dimen name="linear_layout_margin_top_bottom">8dp</dimen>
-    <dimen name="pagination_icon">64dp</dimen>
+    <dimen name="pagination_icon">40dp</dimen>
 
     <dimen name="internal_margin">8dp</dimen>
     <dimen name="corner_radius">8dp</dimen>
