@@ -13,6 +13,7 @@ import com.example.deputy_chamber_app.databinding.FragmentDeputyListBinding
 import com.example.deputy_chamber_app.presentation.ui.activity.DeputyDetailActivity
 import com.example.deputy_chamber_app.domain.entity.DeputyItem
 import com.example.deputy_chamber_app.presentation.ui.view.adapter.DeputyAdapter
+import com.example.deputy_chamber_app.presentation.ui.view.adapter.DeputyAdapterPaging
 import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnAdvancePaginationClickListener
 import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnDeputyItemClickListener
 import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnReturnPaginationClickListener
@@ -41,9 +42,13 @@ class DeputyListFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val pagingAdapter = DeputyAdapterPaging(this)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.addItemDecoration(SpaceItemDecoration(32))
+        binding.recyclerView.adapter = pagingAdapter
         loading(true)
+
         try {
             viewModel.handleAction(DeputyListAction.LoadData(null))
             setupObserver()
@@ -54,10 +59,15 @@ class DeputyListFragment :
         }
     }
 
-    private fun setupObserver() {
+    private fun setupObserver(
+        paging: DeputyAdapterPaging
+    ) {
         viewModel.deputyListState .observe(viewLifecycleOwner) {
             loading(it.isLoading)
-            setupRecycler(it.data?.itemList?: emptyList())
+
+            paging.submitData(
+                it.data.itemList
+            )
 
             binding.recyclerView.visibility = if(it.isLoading) View.GONE else View.VISIBLE
 
@@ -68,15 +78,12 @@ class DeputyListFragment :
             }
         }
     }
-    private fun setupRecycler(feedList: List<DeputyItem>) = binding.recyclerView.apply {
-        val deputyItemListAdapter = DeputyAdapter(
-            feedList,
-            this@DeputyListFragment,
-            this@DeputyListFragment,
-            this@DeputyListFragment,
-            )
-        adapter = deputyItemListAdapter
-    }
+//    private fun setupRecycler() = binding.recyclerView.apply {
+//        val deputyItemListAdapter = DeputyAdapterPaging(
+//            this@DeputyListFragment
+//            )
+//        adapter = deputyItemListAdapter
+//    }
 
     private fun loading(isLoading: Boolean) {
         if (isLoading) {

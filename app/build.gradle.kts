@@ -81,4 +81,8 @@ dependencies {
 
     // Gson
     implementation("com.google.code.gson:gson:2.10.1")
+
+    // Pagination
+    implementation ("androidx.paging:paging-runtime:3.3.6")
+    testImplementation ("androidx.paging:paging-common:3.3.6")
 }

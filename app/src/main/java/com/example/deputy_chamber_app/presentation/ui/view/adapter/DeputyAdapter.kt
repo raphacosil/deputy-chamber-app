@@ -48,7 +48,7 @@ class DeputyAdapter(
     }
 
     inner class DeputyItemViewHolder(
-        private val binding: DeputyItemBinding,
+        val binding: DeputyItemBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(deputyItem: DeputyItem){
             binding.apply {

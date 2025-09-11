@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.deputy_chamber_app.domain.DeputyPagingSource
 import com.example.deputy_chamber_app.domain.entity.DeputiesPage
 import com.example.deputy_chamber_app.domain.usecase.GetDeputiesUseCase
 import com.example.deputy_chamber_app.presentation.viewmodel.action.DeputyListAction
@@ -12,7 +13,8 @@ import com.example.deputy_chamber_app.presentation.viewmodel.state.DeputyListSta
 import kotlinx.coroutines.launch
 
 class DeputyListViewModel(
-    private val getDeputiesUseCase: GetDeputiesUseCase
+    private val getDeputiesUseCase: GetDeputiesUseCase,
+    private val deputyPagingSource: DeputyPagingSource
 ): ViewModel() {
     private val _deputyListState = MutableLiveData<DeputyListState>()
     val deputyListState: LiveData<DeputyListState> = _deputyListState
@@ -44,7 +46,7 @@ class DeputyListViewModel(
     private fun getDeputyList(page: Int?) {
         viewModelScope.launch {
             try {
-                val result = getDeputiesUseCase.invoke(page)
+                val result = deputyPagingSource.load(null)
                 if (result != null) {
                     onDataLoaded(result)
                 } else {
