@@ -1,11 +1,13 @@
 package com.example.deputy_chamber_app.domain.repository
 
+import androidx.paging.PagingData
 import com.example.deputy_chamber_app.domain.entity.CostItem
-import com.example.deputy_chamber_app.domain.entity.DeputiesPage
 import com.example.deputy_chamber_app.domain.entity.DeputyDetail
+import com.example.deputy_chamber_app.domain.entity.DeputyItem
+import java.util.concurrent.Flow
 
 interface DeputyRepository {
-    suspend fun getDeputies(page: Int?): DeputiesPage?
+    suspend fun getDeputies(pageSize: Int): Flow<PagingData<DeputyItem>>
 
     suspend fun getDeputyDetail(id: Int): DeputyDetail?
 

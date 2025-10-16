@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.deputy_chamber_app.domain.DeputyPagingSource
+import com.example.deputy_chamber_app.data.datasource.DeputyPagingSource
 import com.example.deputy_chamber_app.domain.entity.DeputiesPage
 import com.example.deputy_chamber_app.domain.usecase.GetDeputiesUseCase
 import com.example.deputy_chamber_app.presentation.viewmodel.action.DeputyListAction
