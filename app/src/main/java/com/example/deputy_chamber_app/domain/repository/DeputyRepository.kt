@@ -4,7 +4,7 @@ import androidx.paging.PagingData
 import com.example.deputy_chamber_app.domain.entity.CostItem
 import com.example.deputy_chamber_app.domain.entity.DeputyDetail
 import com.example.deputy_chamber_app.domain.entity.DeputyItem
-import java.util.concurrent.Flow
+import kotlinx.coroutines.flow.Flow
 
 interface DeputyRepository {
     suspend fun getDeputies(pageSize: Int): Flow<PagingData<DeputyItem>>

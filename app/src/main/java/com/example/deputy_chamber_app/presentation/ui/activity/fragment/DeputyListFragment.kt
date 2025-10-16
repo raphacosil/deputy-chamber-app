@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.deputy_chamber_app.databinding.FragmentDeputyListBinding
 import com.example.deputy_chamber_app.presentation.ui.activity.DeputyDetailActivity
@@ -20,6 +21,7 @@ import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnRetu
 import com.example.deputy_chamber_app.presentation.ui.view.style.SpaceItemDecoration
 import com.example.deputy_chamber_app.presentation.viewmodel.DeputyListViewModel
 import com.example.deputy_chamber_app.presentation.viewmodel.action.DeputyListAction
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DeputyListFragment :
@@ -50,7 +52,7 @@ class DeputyListFragment :
         loading(true)
 
         try {
-            viewModel.handleAction(DeputyListAction.LoadData(null))
+            viewModel.handleAction(DeputyListAction.LoadData)
             setupObserver()
         } catch (e: Exception) {
             Log.d("DeputyListFragment", "onViewCreated: $e")
@@ -62,12 +64,12 @@ class DeputyListFragment :
     private fun setupObserver(
         paging: DeputyAdapterPaging
     ) {
-        viewModel.deputyListState .observe(viewLifecycleOwner) {
+        viewModel.deputyListState.observe(viewLifecycleOwner) {
             loading(it.isLoading)
 
-            paging.submitData(
-                it.data.itemList
-            )
+            it.data?.collectLatest { pagingData ->
+                paging.submitData(pagingData)
+            }
 
             binding.recyclerView.visibility = if(it.isLoading) View.GONE else View.VISIBLE
 
@@ -100,12 +102,12 @@ class DeputyListFragment :
     }
 
     override fun onAdvancePaginationClick() {
-        viewModel.handleAction(DeputyListAction.LoadData(nextPage))
+        viewModel.handleAction(DeputyListAction.LoadData)
     }
 
     override fun onReturnPaginationClick() {
         if (previousPage != 0) {
-            viewModel.handleAction(DeputyListAction.LoadData(previousPage))
+            viewModel.handleAction(DeputyListAction.LoadData)
         }
     }
 }

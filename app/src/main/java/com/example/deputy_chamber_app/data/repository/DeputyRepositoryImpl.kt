@@ -3,16 +3,18 @@ package com.example.deputy_chamber_app.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.map
 import com.example.deputy_chamber_app.data.datasource.DeputyPagingSource
 import com.example.deputy_chamber_app.data.dto.DeputyCostsResponse
 import com.example.deputy_chamber_app.data.dto.DeputyDetailResponse
-import com.example.deputy_chamber_app.data.dto.GetDeputiesResponse
+import com.example.deputy_chamber_app.data.dto.DeputyItemDto
 import com.example.deputy_chamber_app.data.service.DeputyService
 import com.example.deputy_chamber_app.domain.entity.CostItem
 import com.example.deputy_chamber_app.domain.entity.DeputyDetail
 import com.example.deputy_chamber_app.domain.entity.DeputyItem
 import com.example.deputy_chamber_app.domain.repository.DeputyRepository
-import java.util.concurrent.Flow
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class DeputyRepositoryImpl(
     private val service: DeputyService,
@@ -25,7 +27,10 @@ class DeputyRepositoryImpl(
                 enablePlaceholders = false
             ),
             pagingSourceFactory = { pagingSource }
-        ).flow
+        ).flow.map { response ->
+            response.map { mapToDeputyItem(it) }
+
+        }
     }
 
     override suspend fun getDeputyDetail(id: Int): DeputyDetail? {
@@ -49,19 +54,17 @@ class DeputyRepositoryImpl(
     }
 }
 
-fun mapToDeputyItem(getDeputiesResponse: GetDeputiesResponse?): List<DeputyItem> {
-    return getDeputiesResponse?.data?.map {
-        DeputyItem(
-            id = it.id,
-            name = it.name,
-            email = it.email,
-            party = it.party,
-            uf = it.uf,
-            imageUrl = it.urlPhoto
-        )
-    } ?: emptyList()
-}
 
+fun mapToDeputyItem(deputyItemDto: DeputyItemDto): DeputyItem {
+    return DeputyItem(
+        id = deputyItemDto.id,
+        name = deputyItemDto.name,
+        email = deputyItemDto.email,
+        party = deputyItemDto.party,
+        uf = deputyItemDto.uf,
+        imageUrl = deputyItemDto.urlPhoto
+    )
+}
 
 fun mapToDeputyDetail(detailResponse: DeputyDetailResponse?): DeputyDetail? {
     if (detailResponse != null) {
@@ -101,11 +104,3 @@ fun mapToCostItem(deputyCostsResponse: DeputyCostsResponse?): List<CostItem>{
         )
     } ?: emptyList()
 }
-
-//fun getPageNumber(url: String?): Int {
-//    return if (url != null) {
-//        Regex("pagina=(\\d+)").find(url)?.groupValues?.get(1)?.toInt() ?: 0
-//    } else {
-//        0
-//    }
-//}

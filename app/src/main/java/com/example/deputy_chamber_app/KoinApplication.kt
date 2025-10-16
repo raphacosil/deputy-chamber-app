@@ -1,5 +1,6 @@
 package com.example.deputy_chamber_app
 
+import com.example.deputy_chamber_app.data.datasource.DeputyPagingSource
 import com.example.deputy_chamber_app.data.repository.DeputyRepositoryImpl
 import com.example.deputy_chamber_app.data.service.DeputyService
 import com.example.deputy_chamber_app.domain.repository.DeputyRepository
@@ -23,8 +24,11 @@ val networkModule = module {
 }
 
 val dataModule = module {
+    factory {
+        DeputyPagingSource(get())
+    }
     factory<DeputyRepository> {
-        DeputyRepositoryImpl(get())
+        DeputyRepositoryImpl(get(), get())
     }
 }
 
