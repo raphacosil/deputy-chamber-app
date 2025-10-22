@@ -2,83 +2,65 @@ package com.example.deputy_chamber_app.presentation.ui.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.deputy_chamber_app.R
-import com.example.deputy_chamber_app.VIEW_TYPE_FOOTER
-import com.example.deputy_chamber_app.VIEW_TYPE_ITEM
 import com.example.deputy_chamber_app.databinding.DeputyItemBinding
-import com.example.deputy_chamber_app.databinding.PaginationItemBinding
 import com.example.deputy_chamber_app.domain.entity.DeputyItem
-import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnAdvancePaginationClickListener
 import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnDeputyItemClickListener
-import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnReturnPaginationClickListener
 
 class DeputyAdapter(
-    private val deputyItemList: List<DeputyItem>,
     private val onDeputyItemClickListener: OnDeputyItemClickListener,
-    private val onReturnPaginationClickListener: OnReturnPaginationClickListener,
-    private val onAdvancePaginationClickListener: OnAdvancePaginationClickListener
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : PagingDataAdapter<DeputyItem, DeputyAdapter.Holder>(DIFF_CALLBACK) {
 
-    override fun getItemCount() = deputyItemList.size + 1
+    inner class Holder(val binding: DeputyItemBinding) : RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == VIEW_TYPE_ITEM) {
-                val binding = DeputyItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                DeputyItemViewHolder(binding)
-            } else {
-                val binding = PaginationItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                PaginationItemHolder(binding)
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+        return Holder(
+            DeputyItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return if (position == deputyItemList.size) VIEW_TYPE_FOOTER else VIEW_TYPE_ITEM
-    }
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        val deputyItem = getItem(position) ?: return
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is DeputyItemViewHolder && position < deputyItemList.size){
-            holder.bind(deputyItemList[position])
+        holder.binding.apply {
+            textViewName.text = deputyItem.name
+            textViewEmail.text = deputyItem.email
+            textViewEmail.paintFlags =
+                textViewEmail.paintFlags or android.graphics.Paint.UNDERLINE_TEXT_FLAG
+            textViewParty.text = deputyItem.party
+            textViewUf.text = mapUf[deputyItem.uf]
+
+            Glide.with(root)
+                .load(deputyItem.imageUrl)
+                .placeholder(R.drawable.deputy_placeholder)
+                .error(R.drawable.deputy_placeholder)
+                .into(imageView)
         }
-
         holder.itemView.setOnClickListener {
-            onDeputyItemClickListener.onDeputyItemClick(deputyItemList[position].id)
+            onDeputyItemClickListener.onDeputyItemClick(deputyItem.id)
         }
     }
 
-    inner class DeputyItemViewHolder(
-        val binding: DeputyItemBinding,
-    ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(deputyItem: DeputyItem){
-            binding.apply {
-                textViewName.text = deputyItem.name
-                textViewEmail.text = deputyItem.email
-                textViewEmail.paintFlags = textViewEmail.paintFlags or android.graphics.Paint.UNDERLINE_TEXT_FLAG
-                textViewParty.text = deputyItem.party
-                textViewUf.text = mapUf[deputyItem.uf]
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DeputyItem>() {
+            override fun areItemsTheSame(oldItem: DeputyItem, newItem: DeputyItem): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-                Glide.with(binding.root)
-                    .load(deputyItem.imageUrl)
-                    .placeholder(R.drawable.deputy_placeholder)
-                    .error(R.drawable.deputy_placeholder)
-                    .into(imageView)
+            override fun areContentsTheSame(oldItem: DeputyItem, newItem: DeputyItem): Boolean {
+                return oldItem == newItem
             }
         }
     }
-
-    inner class PaginationItemHolder(
-        binding: PaginationItemBinding
-    ): RecyclerView.ViewHolder(binding.root){
-        init {
-            binding.btnAdvance.setOnClickListener {
-                onAdvancePaginationClickListener.onAdvancePaginationClick()
-            }
-            binding.btnReturn.setOnClickListener {
-                onReturnPaginationClickListener.onReturnPaginationClick()
-            }
-        }
-    }
+}
 
     private val mapUf = mapOf(
         "AC" to "Acre",
@@ -109,4 +91,3 @@ class DeputyAdapter(
         "SE" to "Sergipe",
         "TO" to "Tocantins"
     )
-}

@@ -8,32 +8,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.paging.PagingData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.deputy_chamber_app.databinding.FragmentDeputyListBinding
 import com.example.deputy_chamber_app.presentation.ui.activity.DeputyDetailActivity
-import com.example.deputy_chamber_app.domain.entity.DeputyItem
 import com.example.deputy_chamber_app.presentation.ui.view.adapter.DeputyAdapter
-import com.example.deputy_chamber_app.presentation.ui.view.adapter.DeputyAdapterPaging
-import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnAdvancePaginationClickListener
 import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnDeputyItemClickListener
-import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnReturnPaginationClickListener
 import com.example.deputy_chamber_app.presentation.ui.view.style.SpaceItemDecoration
 import com.example.deputy_chamber_app.presentation.viewmodel.DeputyListViewModel
 import com.example.deputy_chamber_app.presentation.viewmodel.action.DeputyListAction
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DeputyListFragment :
-    Fragment(),
-    OnDeputyItemClickListener,
-    OnAdvancePaginationClickListener,
-    OnReturnPaginationClickListener
-{
+class DeputyListFragment : Fragment(), OnDeputyItemClickListener {
     private lateinit var binding: FragmentDeputyListBinding
     private val viewModel: DeputyListViewModel by viewModel()
-    private var nextPage: Int = 2
-    private var previousPage: Int = 0
+    private val adapter: DeputyAdapter by lazy { DeputyAdapter(this) }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,10 +36,7 @@ class DeputyListFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val pagingAdapter = DeputyAdapterPaging(this)
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        binding.recyclerView.addItemDecoration(SpaceItemDecoration(32))
-        binding.recyclerView.adapter = pagingAdapter
+        setupRecycler()
         loading(true)
 
         try {
@@ -61,31 +49,31 @@ class DeputyListFragment :
         }
     }
 
-    private fun setupObserver(
-        paging: DeputyAdapterPaging
-    ) {
+    private fun setupObserver() {
         viewModel.deputyListState.observe(viewLifecycleOwner) {
             loading(it.isLoading)
 
-            it.data?.collectLatest { pagingData ->
-                paging.submitData(pagingData)
+            it.data?.let { flow ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    flow.collectLatest { pagingData ->
+                        adapter.submitData(pagingData)
+                    }
+                }
             }
 
             binding.recyclerView.visibility = if(it.isLoading) View.GONE else View.VISIBLE
 
-            nextPage = it.data?.nextPage?:2
-            previousPage = it.data?.previousPage?:0
             it.errorMessage?.let { error ->
                 Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
             }
         }
     }
-//    private fun setupRecycler() = binding.recyclerView.apply {
-//        val deputyItemListAdapter = DeputyAdapterPaging(
-//            this@DeputyListFragment
-//            )
-//        adapter = deputyItemListAdapter
-//    }
+    private fun setupRecycler() = binding.recyclerView.apply {
+        adapter = DeputyAdapter(this@DeputyListFragment)
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.addItemDecoration(SpaceItemDecoration(32))
+        binding.recyclerView.adapter = adapter
+    }
 
     private fun loading(isLoading: Boolean) {
         if (isLoading) {
@@ -99,15 +87,5 @@ class DeputyListFragment :
         val intent = Intent(requireContext(), DeputyDetailActivity::class.java)
         intent.putExtra("deputyId", deputyId)
         startActivity(intent)
-    }
-
-    override fun onAdvancePaginationClick() {
-        viewModel.handleAction(DeputyListAction.LoadData)
-    }
-
-    override fun onReturnPaginationClick() {
-        if (previousPage != 0) {
-            viewModel.handleAction(DeputyListAction.LoadData)
-        }
     }
 }
