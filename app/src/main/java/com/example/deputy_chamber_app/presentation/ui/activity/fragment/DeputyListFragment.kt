@@ -40,8 +40,8 @@ class DeputyListFragment : Fragment(), OnDeputyItemClickListener {
         loading(true)
 
         try {
-            viewModel.handleAction(DeputyListAction.LoadData)
             setupObserver()
+            viewModel.handleAction(DeputyListAction.LoadData)
         } catch (e: Exception) {
             Log.d("DeputyListFragment", "onViewCreated: $e")
             Toast.makeText(requireContext(), "Error fetching deputies", Toast.LENGTH_SHORT).show()
