@@ -32,15 +32,18 @@ class DeputyListViewModel(
     }
 
     private fun loadData() {
+        Log.d("DeputyListViewModel", "loadData: ")
         _deputyListState.value = _deputyListState.value?.copy(isLoading = true)
         getDeputyList()
     }
 
     private fun onDataLoaded(data: Flow<PagingData<DeputyItem>>) {
+        Log.d("DeputyListViewModel", "onDataLoaded: $data")
         _deputyListState.value = _deputyListState.value?.copy(isLoading = false, data = data)
     }
 
     private fun onError(error: String) {
+        Log.d("DeputyListViewModel", "onError: $error")
         _deputyListState.value = _deputyListState.value?.copy(isLoading = false, errorMessage = error)
     }
 
@@ -48,6 +51,7 @@ class DeputyListViewModel(
         viewModelScope.launch {
             try {
                 val result = getDeputiesUseCase.invoke(20).cachedIn(this)
+                Log.d("DeputyListViewModel", "getDeputyList: $result")
                 onDataLoaded(result)
             } catch (e: Exception) {
                 Log.e("DeputyListViewModel",
