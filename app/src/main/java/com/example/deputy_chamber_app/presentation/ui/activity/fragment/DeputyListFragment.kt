@@ -24,7 +24,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class DeputyListFragment : Fragment(), OnDeputyItemClickListener {
     private lateinit var binding: FragmentDeputyListBinding
     private val viewModel: DeputyListViewModel by viewModel()
-    private val adapter: DeputyAdapter by lazy { DeputyAdapter(this) }
+    private lateinit var deputyAdapter: DeputyAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,7 +56,7 @@ class DeputyListFragment : Fragment(), OnDeputyItemClickListener {
             it.data?.let { flow ->
                 viewLifecycleOwner.lifecycleScope.launch {
                     flow.collectLatest { pagingData ->
-                        adapter.submitData(pagingData)
+                        deputyAdapter.submitData(pagingData)
                     }
                 }
             }
@@ -69,10 +69,10 @@ class DeputyListFragment : Fragment(), OnDeputyItemClickListener {
         }
     }
     private fun setupRecycler() = binding.recyclerView.apply {
-        adapter = DeputyAdapter(this@DeputyListFragment)
+        deputyAdapter = DeputyAdapter(this@DeputyListFragment)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.addItemDecoration(SpaceItemDecoration(32))
-        binding.recyclerView.adapter = adapter
+        binding.recyclerView.adapter = deputyAdapter
     }
 
     private fun loading(isLoading: Boolean) {
