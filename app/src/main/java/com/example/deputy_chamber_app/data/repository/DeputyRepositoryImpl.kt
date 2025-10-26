@@ -4,8 +4,9 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
+import com.example.deputy_chamber_app.data.datasource.DeputyCostPagingSource
 import com.example.deputy_chamber_app.data.datasource.DeputyPagingSource
-import com.example.deputy_chamber_app.data.dto.DeputyCostsResponse
+import com.example.deputy_chamber_app.data.dto.CostItemDto
 import com.example.deputy_chamber_app.data.dto.DeputyDetailResponse
 import com.example.deputy_chamber_app.data.dto.DeputyItemDto
 import com.example.deputy_chamber_app.data.service.DeputyService
@@ -43,17 +44,19 @@ class DeputyRepositoryImpl(
         return null
     }
 
-    override suspend fun getDeputyCosts(id: Int, page: Int?): List<CostItem> {
-        val response = service.getDeputyCosts (id, page)
-        if (response.isSuccessful) {
-            return mapToCostItem(
-                response.body()
-            )
+    override suspend fun getDeputyCosts(deputyId: Int, pageSize: Int): Flow<PagingData<CostItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = pageSize,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { DeputyCostPagingSource(service, deputyId) }
+        ).flow.map { response ->
+            response.map { mapToCostItem(it) }
+
         }
-        return emptyList()
     }
 }
-
 
 fun mapToDeputyItem(deputyItemDto: DeputyItemDto): DeputyItem {
     return DeputyItem(
@@ -91,16 +94,14 @@ fun mapToDeputyDetail(detailResponse: DeputyDetailResponse?): DeputyDetail? {
     return null
 }
 
-fun mapToCostItem(deputyCostsResponse: DeputyCostsResponse?): List<CostItem>{
-    return deputyCostsResponse?.data?.map {
-        CostItem(
-            type = it.type,
-            supplier = it.supplier,
-            supplierCpfCnpj = it.supplierCpfCnpj,
-            installment = it.installment,
-            value = it.value,
-            documentType = it.documentType,
-            documentLink = it.documentLink
-        )
-    } ?: emptyList()
+fun mapToCostItem(costItemDto: CostItemDto): CostItem{
+    return CostItem(
+        type = costItemDto.type,
+        supplier = costItemDto.supplier,
+        supplierCpfCnpj = costItemDto.supplierCpfCnpj,
+        installment = costItemDto.installment,
+        value = costItemDto.value,
+        documentType = costItemDto.documentType,
+        documentLink = costItemDto.documentLink
+    )
 }

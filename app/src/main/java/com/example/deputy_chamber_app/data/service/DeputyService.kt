@@ -7,20 +7,13 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import retrofit2.http.Url
 
 interface DeputyService {
 
     @GET("deputados")
     suspend fun getDeputies(
         @Query("pagina") page: Int?,
-        @Query("itens") items: Int = 10
-    ): Response<GetDeputiesResponse>
-
-    @GET
-    suspend fun getDeputiesPage(
-        @Url url: String,
-        @Query("itens") items: Int = 10,
+        @Query("itens") items: Int = 15
     ): Response<GetDeputiesResponse>
 
     @GET("deputados/{id}")
@@ -31,6 +24,7 @@ interface DeputyService {
     @GET("deputados/{id}/despesas")
     suspend fun getDeputyCosts(
         @Path("id") id: Int,
-        @Query("pagina") page: Int?
+        @Query("pagina") page: Int?,
+        @Query("itens") items: Int = 15
     ): Response<DeputyCostsResponse>
 }

@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.Flow
 class GetDeputiesUseCase(
     private val deputyRepository: DeputyRepository
 ) {
-    suspend operator fun invoke(pageSize: Int): Flow<PagingData<DeputyItem>> {
-        return deputyRepository.getDeputies(pageSize)
-    }
+    suspend operator fun invoke(pageSize: Int): Flow<PagingData<DeputyItem>> =
+        deputyRepository.getDeputies(pageSize)
 }
