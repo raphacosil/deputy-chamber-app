@@ -36,11 +36,10 @@ class DeputyListFragment : Fragment(), OnDeputyItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupRecycler()
-        loading(true)
-
         try {
+            setupRecycler()
             setupObserver()
+
             viewModel.handleAction(DeputyListAction.LoadData)
         } catch (e: Exception) {
             Log.d("DeputyListFragment", "onViewCreated: $e")

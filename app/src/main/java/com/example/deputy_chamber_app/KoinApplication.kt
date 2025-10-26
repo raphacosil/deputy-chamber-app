@@ -5,7 +5,9 @@ import com.example.deputy_chamber_app.data.repository.DeputyRepositoryImpl
 import com.example.deputy_chamber_app.data.service.DeputyService
 import com.example.deputy_chamber_app.domain.repository.DeputyRepository
 import com.example.deputy_chamber_app.domain.usecase.GetDeputiesUseCase
+import com.example.deputy_chamber_app.domain.usecase.GetDeputyCostsUseCase
 import com.example.deputy_chamber_app.domain.usecase.GetDeputyDetailUseCase
+import com.example.deputy_chamber_app.presentation.viewmodel.DeputyCostViewModel
 import com.example.deputy_chamber_app.presentation.viewmodel.DeputyDetailViewModel
 import com.example.deputy_chamber_app.presentation.viewmodel.DeputyListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -39,6 +41,9 @@ val domainModule = module {
     factory {
         GetDeputyDetailUseCase(get())
     }
+    factory {
+        GetDeputyCostsUseCase(get())
+    }
 }
 
 val presentationModule = module {
@@ -47,5 +52,9 @@ val presentationModule = module {
     }
     viewModel {
         DeputyDetailViewModel(get())
+    }
+
+    viewModel{
+        DeputyCostViewModel(get())
     }
 }
