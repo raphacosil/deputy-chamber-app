@@ -96,6 +96,7 @@ fun mapToDeputyDetail(detailResponse: DeputyDetailResponse?): DeputyDetail? {
 
 fun mapToCostItem(costItemDto: CostItemDto): CostItem{
     return CostItem(
+        id = costItemDto.documentNumber,
         type = costItemDto.type,
         supplier = costItemDto.supplier,
         supplierCpfCnpj = costItemDto.supplierCpfCnpj,

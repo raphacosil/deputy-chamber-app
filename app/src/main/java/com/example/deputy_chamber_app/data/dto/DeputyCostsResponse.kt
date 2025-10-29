@@ -10,6 +10,8 @@ data class DeputyCostsResponse(
 )
 
 data class CostItemDto(
+    @SerializedName("numDocumento")
+    val documentNumber: Int,
     @SerializedName("tipoDespesa")
     val type: String,
     @SerializedName("nomeFornecedor")

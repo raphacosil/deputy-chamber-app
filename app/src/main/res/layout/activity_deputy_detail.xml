@@ -212,6 +212,7 @@
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSeeCosts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/see_costs_btn"

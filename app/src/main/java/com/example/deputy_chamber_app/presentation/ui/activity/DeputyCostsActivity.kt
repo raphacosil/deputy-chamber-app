@@ -30,20 +30,28 @@ class DeputyCostsActivity : AppCompatActivity(), OnLinkClickListener {
         binding = ActivityDeputyCostsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnExit.setOnClickListener {
-            finish()
-        }
-        val deputyId = intent.getIntExtra("deputyId", 0)
-        setupRecycler()
-
         try {
+            binding.btnExit.setOnClickListener {
+                finish()
+            }
+            val deputyId = intent.getIntExtra("deputyId", 0)
+
+            setupRecycler()
+            setupObserver()
+
             loading(true)
             viewModel.handleAction(DeputyCostAction.LoadData(deputyId))
-            setupObserver()
         } catch (e: Exception) {
             Log.d("DeputyListFragment", "onViewCreated: $e")
             loading(false)
         }
+    }
+
+    private fun setupRecycler() = binding.recyclerView.apply {
+        adapter = DeputyCostAdapter(this@DeputyCostsActivity)
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.addItemDecoration(SpaceItemDecoration(32))
+        binding.recyclerView.adapter = adapter
     }
 
     private fun setupObserver() {
@@ -64,13 +72,6 @@ class DeputyCostsActivity : AppCompatActivity(), OnLinkClickListener {
                 Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    private fun setupRecycler() = binding.recyclerView.apply {
-        adapter = DeputyCostAdapter(this@DeputyCostsActivity)
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        binding.recyclerView.addItemDecoration(SpaceItemDecoration(32))
-        binding.recyclerView.adapter = adapter
     }
 
     private fun loading(isLoading: Boolean) {

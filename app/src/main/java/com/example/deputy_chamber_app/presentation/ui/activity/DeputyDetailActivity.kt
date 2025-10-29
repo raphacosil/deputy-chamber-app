@@ -34,6 +34,11 @@ class DeputyDetailActivity : AppCompatActivity(), OnLinkClickListener {
         }
         val deputyId = intent.getIntExtra("deputyId", 0)
 
+        binding.btnSeeCosts.setOnClickListener {
+            val intent = Intent(this, DeputyCostsActivity::class.java)
+            intent.putExtra("deputyId", deputyId)
+            startActivity(intent)
+        }
         try {
             loading(true)
             viewModel.handleAction(DeputyDetailAction.LoadData(deputyId))
