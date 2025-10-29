@@ -47,12 +47,15 @@ class DeputyCostsActivity : AppCompatActivity(), OnLinkClickListener {
         }
     }
 
-    private fun setupRecycler() = binding.recyclerView.apply {
+    private fun setupRecycler(){
         adapter = DeputyCostAdapter(this@DeputyCostsActivity)
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        binding.recyclerView.addItemDecoration(SpaceItemDecoration(32))
-        binding.recyclerView.adapter = adapter
+        binding.recyclerView.apply {
+            binding.recyclerView.layoutManager = LinearLayoutManager(context)
+            binding.recyclerView.addItemDecoration(SpaceItemDecoration(32))
+            binding.recyclerView.adapter = adapter
+        }
     }
+
 
     private fun setupObserver() {
         viewModel.deputyCostState.observe(this) {
