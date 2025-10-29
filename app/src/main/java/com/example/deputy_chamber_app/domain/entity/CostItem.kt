@@ -1,6 +1,7 @@
 package com.example.deputy_chamber_app.domain.entity
 
 data class CostItem(
+    val id: Int,
     val type: String,
     val supplier: String,
     val supplierCpfCnpj: String,

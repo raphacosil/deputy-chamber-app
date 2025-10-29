@@ -2,45 +2,56 @@ package com.example.deputy_chamber_app.presentation.ui.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.deputy_chamber_app.databinding.CostItemBinding
 import com.example.deputy_chamber_app.domain.entity.CostItem
 import com.example.deputy_chamber_app.presentation.ui.view.click_listener.OnLinkClickListener
 
 class DeputyCostAdapter(
-    private val deputyCostList: List<CostItem>,
     private val onLinkClickListener: OnLinkClickListener
-) : RecyclerView.Adapter<DeputyCostAdapter.DeputyCostItemViewHolder>() {
+) : PagingDataAdapter<CostItem, DeputyCostAdapter.Holder>(DIFF_CALLBACK) {
 
-    override fun getItemCount(): Int = deputyCostList.size
+    inner class Holder(val binding: CostItemBinding) : RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeputyCostItemViewHolder {
-        val binding = CostItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return DeputyCostItemViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeputyCostAdapter.Holder {
+        return Holder(
+            CostItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
-    override fun onBindViewHolder(holder: DeputyCostItemViewHolder, position: Int) {
-        holder.bind(deputyCostList[position])
-    }
-
-    inner class DeputyCostItemViewHolder(
-        private val binding: CostItemBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(costItem: CostItem) {
-            binding.apply {
-                tvType.text = costItem.type
-                tvValue.text = "R$ ${costItem.value}"
+    override fun onBindViewHolder(holder: DeputyCostAdapter.Holder, position: Int) {
+        val deputyItem = getItem(position) ?: return
+            holder.binding.apply {
+                tvType.text = deputyItem.type
+                tvValue.text = "R$ ${deputyItem.value}"
                 tvInstallment.text =
-                    if (costItem.installment != 0) "${costItem.installment}º parcela"
+                    if (deputyItem.installment != 0) "${deputyItem.installment}º parcela"
                     else "Não parcelado"
-                tvFileLink.text = costItem.documentType
+                tvFileLink.text = deputyItem.documentType
                 tvFileLink.paintFlags =
                     tvFileLink.paintFlags or android.graphics.Paint.UNDERLINE_TEXT_FLAG
                 tvFileLink.setOnClickListener {
-                    onLinkClickListener.onLinkClick(costItem.documentLink)
+                    onLinkClickListener.onLinkClick(deputyItem.documentLink)
                 }
-                tvSupplierName.text = costItem.supplier
+                tvSupplierName.text = deputyItem.supplier
+            }
+
+    }
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<CostItem>() {
+            override fun areItemsTheSame(oldItem: CostItem, newItem: CostItem): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: CostItem, newItem: CostItem): Boolean {
+                return oldItem == newItem
             }
         }
     }
