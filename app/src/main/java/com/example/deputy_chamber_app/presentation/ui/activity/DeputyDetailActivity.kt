@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.deputy_chamber_app.R
+import com.example.deputy_chamber_app.capitalize
 import com.example.deputy_chamber_app.databinding.ActivityDeputyDetailBinding
 import com.example.deputy_chamber_app.domain.entity.DeputyDetail
 import com.example.deputy_chamber_app.presentation.ui.view.adapter.SocialMediaAdapter
@@ -62,57 +63,9 @@ class DeputyDetailActivity : AppCompatActivity(), OnLinkClickListener {
 
     private fun setupContent(deputyInfo: DeputyDetail?) {
         if (deputyInfo != null) {
-            Glide.with(this)
-                .load(deputyInfo.imageUrl)
-                .placeholder(R.drawable.deputy_placeholder)
-                .error(R.drawable.deputy_placeholder)
-                .into(binding.ivDeputyPhoto)
-
-            binding.tvName.text = capitalize(deputyInfo.civilName)
-            binding.tvParty.text = deputyInfo.party
-            binding.tvUf.text = deputyInfo.uf
-            setupSituation(deputyInfo.situation)
-
-            binding.tvBirthDate.text = getString(R.string.born_in).format(deputyInfo.birthDate)
-
-            binding.tvCityState.text = getString(R.string.natural).format(
-                deputyInfo.birthMunicipality,
-                deputyInfo.birthState
-            )
-
-            deputyInfo.schooling.let {
-                if (it == "") binding.tvSchooling.visibility =
-                    View.GONE else binding.tvSchooling.text =  getString(R.string.schooling).format(it)
-            }
-
-            binding.tvCabinetInfo.text = getString(R.string.cabinet).format(
-                deputyInfo.building,
-                deputyInfo.floor,
-                deputyInfo.room
-            )
-            deputyInfo.phone.let {
-                if (it == "") binding.tvPhone.visibility = View.GONE else binding.tvPhone.text = it
-            }
-            binding.tvPhone.paintFlags =
-                binding.tvPhone.paintFlags or android.graphics.Paint.UNDERLINE_TEXT_FLAG
-
-            binding.tvPhone.setOnClickListener {
-                val intent = Intent(Intent.ACTION_DIAL)
-                intent.data = Uri.parse("tel:${deputyInfo.phone}")
-                startActivity(intent)
-            }
-
-            deputyInfo.email.let {
-                if (it == "") binding.tvEmail.visibility = View.GONE else binding.tvEmail.text = it
-            }
-            binding.tvEmail.paintFlags =
-                binding.tvEmail.paintFlags or android.graphics.Paint.UNDERLINE_TEXT_FLAG
-
-            binding.tvEmail.setOnClickListener {
-                val intent = Intent(Intent.ACTION_SENDTO)
-                intent.data = Uri.parse("mailto:${deputyInfo.email}")
-                startActivity(intent)
-            }
+            setupHeaderInfo(deputyInfo)
+            setupPersonalInfo(deputyInfo)
+            setupCabinetInfo(deputyInfo)
 
             setupLinkRecycler(deputyInfo.socialMedia)
 
@@ -120,80 +73,86 @@ class DeputyDetailActivity : AppCompatActivity(), OnLinkClickListener {
         }
     }
 
+    private fun setupHeaderInfo(deputyInfo: DeputyDetail) {
+        Glide.with(this)
+            .load(deputyInfo.imageUrl)
+            .placeholder(R.drawable.deputy_placeholder)
+            .error(R.drawable.deputy_placeholder)
+            .into(binding.ivDeputyPhoto)
+
+        binding.tvName.text = deputyInfo.civilName.capitalize()
+        binding.tvParty.text = deputyInfo.party
+        binding.tvUf.text = deputyInfo.uf
+        setupSituation(deputyInfo.situation)
+    }
+
+    private fun setupPersonalInfo(deputyInfo: DeputyDetail) {
+        binding.tvBirthDate.text = getString(R.string.born_in).format(deputyInfo.birthDate)
+
+        binding.tvCityState.text = getString(R.string.natural).format(
+            deputyInfo.birthMunicipality,
+            deputyInfo.birthState
+        )
+
+        deputyInfo.schooling.let {
+            if (it == "") binding.tvSchooling.visibility =
+                View.GONE else binding.tvSchooling.text =  getString(R.string.schooling).format(it)
+        }
+    }
+
+    private fun setupCabinetInfo(deputyInfo: DeputyDetail) {
+        binding.tvCabinetInfo.text = getString(R.string.cabinet).format(
+            deputyInfo.building,
+            deputyInfo.floor,
+            deputyInfo.room
+        )
+        deputyInfo.phone.let {
+            if (it == "") binding.tvPhone.visibility = View.GONE else binding.tvPhone.text = it
+        }
+        binding.tvPhone.paintFlags =
+            binding.tvPhone.paintFlags or android.graphics.Paint.UNDERLINE_TEXT_FLAG
+
+        binding.tvPhone.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:${deputyInfo.phone}")
+            startActivity(intent)
+        }
+
+        deputyInfo.email.let {
+            if (it == "") binding.tvEmail.visibility = View.GONE else binding.tvEmail.text = it
+        }
+        binding.tvEmail.paintFlags =
+            binding.tvEmail.paintFlags or android.graphics.Paint.UNDERLINE_TEXT_FLAG
+
+        binding.tvEmail.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SENDTO)
+            intent.data = Uri.parse("mailto:${deputyInfo.email}")
+            startActivity(intent)
+        }
+    }
+
     private fun setupSituation(situation: String) {
         binding.tvSituation.text = situation
-        when (situation) {
+        binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
+        val color = when (situation) {
             "Ativo" -> {
-                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
-                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(this, R.color.blue)
-                )
-                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.blue))
+                R.color.blue
             }
-            "Inativo" -> {
-                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
-                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(this, R.color.red)
-                )
-                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.red))
+            "Convocado", "Exercício", "Vacência" -> {
+                R.color.green
             }
-            "Afastado" -> {
-                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
-                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(this, R.color.yellow)
-                )
-                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.yellow))
+            "Inativo", "Fim de Mandato", "Suspenso" -> {
+                R.color.red
             }
-            "Convocado" -> {
-                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
-                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(this, R.color.green)
-                )
-                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.green))
+            "Afastado", "Licença", "Suplência" -> {
+                R.color.yellow
             }
-            "Exercício" -> {
-                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
-                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(this, R.color.green)
-                )
-                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.green))
-            }
-            "Fim de Mandato" -> {
-                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
-                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(this, R.color.red)
-                )
-                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.red))
-            }
-            "Licença" -> {
-                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
-                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(this, R.color.yellow)
-                )
-                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.yellow))
-            }
-            "Suplência" -> {
-                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
-                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(this, R.color.yellow)
-                )
-                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.yellow))
-            }
-            "Suspenso" -> {
-                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
-                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(this, R.color.red)
-                )
-                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.red))
-            }
-            "Vacência" -> {
-                binding.vIcon.background = ContextCompat.getDrawable(this, R.drawable.status_style)
-                binding.vIcon.backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(this, R.color.green)
-                )
-                binding.tvSituation.setTextColor(ContextCompat.getColor(this, R.color.green))
-            }
+            else -> { R.color.blue }
         }
+        binding.vIcon.backgroundTintList = ColorStateList.valueOf(
+            ContextCompat.getColor(this, color)
+        )
+        binding.tvSituation.setTextColor(ContextCompat.getColor(this, color))
     }
 
     private fun setupLinkRecycler(links: List<String>?) {
@@ -208,13 +167,6 @@ class DeputyDetailActivity : AppCompatActivity(), OnLinkClickListener {
             }
         } else {
             binding.deputyRedesLinear.visibility = View.GONE
-        }
-    }
-
-    private fun capitalize(s: String?): String {
-        if (s.isNullOrBlank()) return ""
-        return s.split(" ").joinToString(" ") {
-            it.lowercase().replaceFirstChar { c -> c.uppercaseChar() }
         }
     }
 
