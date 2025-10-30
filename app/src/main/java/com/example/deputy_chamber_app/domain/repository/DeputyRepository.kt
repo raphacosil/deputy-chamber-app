@@ -11,5 +11,5 @@ interface DeputyRepository {
 
     suspend fun getDeputyDetail(id: Int): DeputyDetail?
 
-    suspend fun getDeputyCosts(deputyId: Int, pageSize: Int): Flow<PagingData<CostItem>>
+    suspend fun getDeputyCosts(deputyId: Int, pageSize: Int?): Flow<PagingData<CostItem>>
 }

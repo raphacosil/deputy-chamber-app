@@ -50,7 +50,7 @@ class DeputyCostViewModel(
     private fun getDeputyCosts(deputyId: Int) {
         viewModelScope.launch {
             try {
-                val result = getDeputyCostsUseCase.invoke(deputyId, 20).cachedIn(this)
+                val result = getDeputyCostsUseCase.invoke(deputyId, 15).cachedIn(this)
                 Log.d("DeputyCostViewModel", "getDeputyCosts: $result")
                 onDataLoaded(result)
             } catch (e: Exception) {

@@ -9,5 +9,5 @@ class GetDeputyCostsUseCase(
     private val deputyRepository: DeputyRepository
 ) {
     suspend operator fun invoke(deputyId: Int, pageSize: Int?): Flow<PagingData<CostItem>> =
-        deputyRepository.getDeputyCosts(pageSize ?: 20, deputyId)
+        deputyRepository.getDeputyCosts(deputyId, pageSize)
 }

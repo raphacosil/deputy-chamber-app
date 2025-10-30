@@ -44,10 +44,10 @@ class DeputyRepositoryImpl(
         return null
     }
 
-    override suspend fun getDeputyCosts(deputyId: Int, pageSize: Int): Flow<PagingData<CostItem>> {
+    override suspend fun getDeputyCosts(deputyId: Int, pageSize: Int?): Flow<PagingData<CostItem>> {
         return Pager(
             config = PagingConfig(
-                pageSize = pageSize,
+                pageSize = pageSize?:15,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = { DeputyCostPagingSource(service, deputyId) }

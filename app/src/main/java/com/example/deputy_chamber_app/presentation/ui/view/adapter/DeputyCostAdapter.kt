@@ -27,20 +27,21 @@ class DeputyCostAdapter(
 
     override fun onBindViewHolder(holder: DeputyCostAdapter.Holder, position: Int) {
         val deputyItem = getItem(position) ?: return
-            holder.binding.apply {
-                tvType.text = deputyItem.type
-                tvValue.text = "R$ ${deputyItem.value}"
-                tvInstallment.text =
-                    if (deputyItem.installment != 0) "${deputyItem.installment}º parcela"
-                    else "Não parcelado"
-                tvFileLink.text = deputyItem.documentType
-                tvFileLink.paintFlags =
-                    tvFileLink.paintFlags or android.graphics.Paint.UNDERLINE_TEXT_FLAG
-                tvFileLink.setOnClickListener {
-                    onLinkClickListener.onLinkClick(deputyItem.documentLink)
-                }
-                tvSupplierName.text = deputyItem.supplier
+
+        holder.binding.apply {
+            tvType.text = deputyItem.type
+            tvValue.text = "R$ ${deputyItem.value}"
+            tvInstallment.text =
+                if (deputyItem.installment != 0) "${deputyItem.installment}º parcela"
+                else "Não parcelado"
+            tvFileLink.text = deputyItem.documentType
+            tvFileLink.paintFlags =
+                tvFileLink.paintFlags or android.graphics.Paint.UNDERLINE_TEXT_FLAG
+            tvFileLink.setOnClickListener {
+                onLinkClickListener.onLinkClick(deputyItem.documentLink)
             }
+            tvSupplierName.text = deputyItem.supplier
+        }
 
     }
 
