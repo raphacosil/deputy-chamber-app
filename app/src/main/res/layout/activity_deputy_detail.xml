@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="state"
+            type="com.example.deputy_chamber_app.presentation.viewmodel.state.DeputyDetailState" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -64,7 +72,7 @@
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:text="@{state.data.civilName}"
                     android:textSize="@dimen/title_text_size"
                     android:textStyle="bold" />
 
@@ -72,14 +80,14 @@
                     android:id="@+id/tvParty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:text="@{state.data.party}"
                     android:textSize="@dimen/text_size" />
 
                 <TextView
                     android:id="@+id/tvUf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:text="@{state.data.uf}"
                     android:textSize="@dimen/text_size" />
 
                 <LinearLayout
@@ -105,7 +113,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/inter_18pt_bold"
                         android:paddingStart="6dp"
-                        android:text="TextView"
+                        android:text="@{state.data.situation}"
                         android:textAlignment="center"
                         android:textSize="@dimen/title_text_size" />
                 </LinearLayout>
@@ -138,14 +146,14 @@
                 android:id="@+id/tvCityState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Natural de São Paulo, do estado de São Paulo"
+                android:text="@{`Natural de ${state.data.birthMunicipality}, do estado de ${state.data.birthState}`}"
                 android:textSize="@dimen/text_size"/>
 
             <TextView
                 android:id="@+id/tvSchooling"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Escolaridade, Ensino Superior Completo "
+                android:text='@{"Escolaridade: " + state.data.schooling}'
                 android:textSize="@dimen/text_size"/>
         </LinearLayout>
 
@@ -168,13 +176,13 @@
                 android:id="@+id/tvCabinetInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text='@{"Prédio " + state.data.building + ", andar " + state.data.floor + ", sala " + state.data.room}'/>
 
             <TextView
                 android:id="@+id/tvPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="3215-5744"
+                android:text="@{state.data.phone}"
                 android:textSize="@dimen/text_size"
                 style="@style/TextViewLinkStyle"
                 />
@@ -183,7 +191,7 @@
                 android:id="@+id/tvEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="dep.fulanodasilva@camara.leg.br"
+                android:text="@{state.data.email}"
                 android:textSize="@dimen/text_size"
                 style="@style/TextViewLinkStyle"
                 />
@@ -228,3 +236,4 @@
 
         </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+    </layout>

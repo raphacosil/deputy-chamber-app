@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.deputy_chamber_app.R
@@ -27,8 +28,7 @@ class DeputyDetailActivity : AppCompatActivity(), OnLinkClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDeputyDetailBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_deputy_detail)
 
         binding.btnExit.setOnClickListener {
             finish()
@@ -43,6 +43,7 @@ class DeputyDetailActivity : AppCompatActivity(), OnLinkClickListener {
         try {
             loading(true)
             viewModel.handleAction(DeputyDetailAction.LoadData(deputyId))
+
             setupObserver()
         } catch (e: Exception) {
             Log.d("DeputyListFragment", "onViewCreated: $e")
@@ -53,7 +54,14 @@ class DeputyDetailActivity : AppCompatActivity(), OnLinkClickListener {
     private fun setupObserver() {
         viewModel.deputyDetailState.observe(this) {
             loading(it.isLoading)
-            setupContent(it.data)
+            binding.state = it
+            Glide.with(this)
+                .load(it.data?.imageUrl)
+                .placeholder(R.drawable.deputy_placeholder)
+                .error(R.drawable.deputy_placeholder)
+                .into(binding.ivDeputyPhoto)
+
+            setupLinkRecycler(it.data?.socialMedia)
             it.errorMessage?.let { error ->
                 Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
                 finish()
