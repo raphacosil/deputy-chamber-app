@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.example.deputy_chamber_app.R
 import com.example.deputy_chamber_app.databinding.ActivityMainBinding
 import com.example.deputy_chamber_app.presentation.ui.activity.fragment.DeputyListFragment
+import com.example.deputy_chamber_app.presentation.ui.activity.fragment.PartyListFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -33,11 +34,11 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.podium -> {
-//                    if (currentFragment !is DeputyPodiumFragment) {
-//                        supportFragmentManager.beginTransaction()
-//                            .replace(R.id.frameLayout, DeputyPodiumFragment())
-//                            .commit()
-//                    }
+                    if (currentFragment !is PartyListFragment) {
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.frameLayout, PartyListFragment())
+                            .commit()
+                    }
                     true
                 }
                 R.id.file -> {

@@ -17,5 +17,7 @@
     <string name="tx_propositions_menu">Proposições</string>
     <string name="title_activity_party_list">PartyListActivity</string>
     <string name="title_activity_party_details">PartyDetailsActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
