@@ -15,5 +15,7 @@
     <string name="tx_deputy_menu">Deputados</string>
     <string name="tx_parties_menu">Partidos</string>
     <string name="tx_propositions_menu">Proposições</string>
+    <string name="title_activity_party_list">PartyListActivity</string>
+    <string name="title_activity_party_details">PartyDetailsActivity</string>
 
 </resources>
