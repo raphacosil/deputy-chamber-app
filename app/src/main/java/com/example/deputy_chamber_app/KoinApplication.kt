@@ -10,6 +10,7 @@ import com.example.deputy_chamber_app.domain.usecase.GetDeputyDetailUseCase
 import com.example.deputy_chamber_app.presentation.viewmodel.DeputyCostViewModel
 import com.example.deputy_chamber_app.presentation.viewmodel.DeputyDetailViewModel
 import com.example.deputy_chamber_app.presentation.viewmodel.DeputyListViewModel
+import com.example.deputy_chamber_app.presentation.viewmodel.PartyListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -53,8 +54,10 @@ val presentationModule = module {
     viewModel {
         DeputyDetailViewModel(get())
     }
-
     viewModel{
         DeputyCostViewModel(get())
+    }
+    viewModel {
+        PartyListViewModel()
     }
 }

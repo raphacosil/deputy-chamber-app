@@ -14,22 +14,31 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.deputy_chamber_app.domain.entity.PartyItem
 import com.example.deputy_chamber_app.presentation.ui.activity.DeputyDetailActivity
+import com.example.deputy_chamber_app.presentation.viewmodel.PartyListViewModel
+import com.example.deputy_chamber_app.presentation.viewmodel.action.PartyListAction
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.getValue
 
 class PartyListFragment : Fragment() {
+
+    private val viewModel: PartyListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,34 +46,22 @@ class PartyListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         return ComposeView(requireContext()).apply {
-            val partyList = listOf(
-                PartyItem(
-                    id = 1,
-                    acronym = "ABC",
-                    name = "Partido ABC"
-                ),
-                PartyItem(
-                    id = 2,
-                    acronym = "DEF",
-                    name = "Partido DEF"
-                ),
-                PartyItem(
-                    id = 3,
-                    acronym = "XYZ",
-                    name = "Partido XYZ"
-                )
-            )
-
             setContent {
-                PartyList(
-                    partyList = partyList,
-                    onItemClick = { id ->
-                        onPartyItemClick(id)
-                    }
-                )
+                viewModel.handleAction(PartyListAction.LoadData)
+                val state by viewModel.partyListState.observeAsState()
+
+                state?.data?.let { flow ->
+                    val lazyPagingItems = flow.collectAsLazyPagingItems()
+
+                    PartyList(
+                        partyItems = lazyPagingItems,
+                        onItemClick = { onPartyItemClick(it) }
+                    )
+                }
             }
         }
     }
+
 
     @Composable
     fun PartyItem(partyItem: PartyItem) {
@@ -95,25 +92,28 @@ class PartyListFragment : Fragment() {
 
     @Composable
     fun PartyList(
-        partyList: List<PartyItem>,
+        partyItems: LazyPagingItems<PartyItem>,
         onItemClick: (Int) -> Unit
     ) {
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+            contentPadding = PaddingValues(16.dp)
         ) {
-            items(partyList) { item ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { onItemClick(item.id) }
-                        .padding(16.dp)
-                ) {
-                    PartyItem(item)
+            items(partyItems.itemCount) { index ->
+                partyItems[index]?.let { item ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { onItemClick(item.id) }
+                            .padding(16.dp)
+                    ) {
+                        PartyItem(item)
+                    }
                 }
             }
         }
     }
+
 
     private fun onPartyItemClick(partyId: Int) {
         val intent = Intent(requireContext(), DeputyDetailActivity::class.java)
